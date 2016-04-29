@@ -1,0 +1,609 @@
+/*utilizamos este estilo para decir que la pantalla sea igual a la pantalla que lo visualice y que el tamaño sea estandar*/
+body
+{
+	width:99%;
+	font-size: 1.40em;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+/*utilizamos este estilo para centrar los elementos en el banner*/
+#banner
+{
+	text-align: center;
+}
+/*utilizamos este estilo para quitar el margin y padding por defecto del h1 dentro de banner*/
+#banner>h1
+{
+	padding-top: 0;
+	margin-top: 0;
+}
+/*utilizamos este codigo para el menu*/
+#menu
+{
+	position:absolute;/*Lo ponemos en */
+	width:100%;
+	top:0;
+	left:-110%;
+	border: 1px solid black;
+	height:100%;
+	background-color:#47708E; 
+	opacity: 0.95;
+	transition:all .5s ease;
+	text-align: center;
+	color:white;
+}
+
+#menu > ul 
+{
+	padding: 0 0 0 0;
+}
+
+#menu>h3
+{
+	margin-top: 18%;
+}
+
+#menu>ul>li
+{
+	list-style: none;
+	background-color: #6790AD;
+	border:0.01em solid white;
+	margin: 0.3em;
+	opacity: 1;
+}
+
+#menu>ul>li:hover
+{
+	list-style: none;
+	background-color: white;
+	border:0.01em solid #6790AD;
+	margin: 0.3em;
+	opacity: 1;
+}
+
+#menu>ul>li>a
+{
+	color:white;
+	text-decoration: none;
+	opacity: 1;
+}
+
+#menu>ul>li:hover>a
+{
+	color:black;
+	text-decoration: none;
+	opacity: 1;
+}
+
+.checkbox:checked#menu-toogle ~ #menu /* ~ hermanos*/
+{
+      left:0%; /*Le quitamos el left negativo para que el menú vuelva a su posición original*/
+      position:fixed; /* Fijamos el menú lateral para que se desplace cuando hagamos scroll*/
+}
+
+.checkbox:checked#menu-toogle ~ label span
+{ 
+      /*left:81%;*/
+      position:fixed; /*Fijamos la hamburguesa para que se desplace junto con el menú*/
+      transition:all .5s ease;/*Con esta propiedad deslizamos*/
+      z-index: 2;/*Con esta propiedad nos aseguramos de que se pueda presionar el boton de cerrar menu siempre*/
+}
+
+input[type="checkbox"]#menu-toogle
+{
+    display: none;
+}
+
+input[type="checkbox"]#menu-toogle + label span
+{
+    display: inline-block;
+    width: 2.2em;
+    height: 2.2em;
+    background: url("../img/hamburguesasprites.png") left top no-repeat;
+}
+
+input[type="checkbox"]:checked#menu-toogle + label span
+{
+    background: url("../img/hamburguesasprites.png") left 100% no-repeat;
+}
+
+/*Fin de menu*/
+
+section>article
+{
+	display:block;
+	width:80%;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+footer /*footer generico*/
+{
+	width:100%;
+}
+
+.footer
+{
+	background-color:#6790AD;
+	margin-bottom:0px;
+	text-align: center;
+	color:white;
+}
+ 
+article img
+{
+	padding-left: 10%;
+	padding-right: 10%;
+	max-height: 80%;
+	max-width: 80%;
+}
+
+article > p,a
+{
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+article > a
+{
+	text-decoration: none;
+	color:black;
+}
+
+article > header > h4
+{
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space: nowrap;
+} 
+
+/*Estilos de contenedores especiale*/
+.archivo_muy_grande_viaje{
+	display:none;
+}
+/*Este estilo sirve para cuando se sube una imagen en crear viaje*/
+#crearviaje_cont_img{
+}
+
+.imagenesviaje> img{
+	width:50px;
+	height:50px;
+	display:inline-block;
+}
+
+
+/* este estilo sirve para cuando se ve una publicacion(viaje)*/
+
+.acerca,.post/*estilo para la pagina de quienes somos/acerca/nosotros*/
+{
+	margin-left: 10%;
+	width: 80%;
+	padding: 0.3em 0.3em 0.3em 0.3em;
+}
+
+.acerca > img
+{
+	max-width: 80%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	height:auto;
+}
+
+.post img
+{
+	max-width: 60%;
+	max-height: 60%;
+}
+
+.login
+{
+	width:80%;
+	text-align: center;
+}
+
+.post .comentario p
+{
+	width:100%;
+	padding-left: 1%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-top:2%;
+	margin-bottom:3%;
+	background-color: #BCCACF;
+}
+
+.comentario_index 
+{
+	display:block;
+	width:100%;
+}
+
+.comentario_index p span:first-child::before
+{
+	content:"Autor:";
+	color:blue;
+}
+
+.comentario_index p span:first-child
+{
+	color:blue;
+	padding-right: 1%;
+}
+
+.comentario p span:first-child::before
+{
+	content:"Autor:";
+	color:blue;
+}
+
+.comentario p span:first-child
+{
+	color:blue;
+	padding-right: 1%;
+}
+
+/*estilos extras*/
+.centrado
+{
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*estilos estrellitas para cada uno de los viajes*/
+.valoracion aside{
+	display:inline-block;
+	overflow: hidden;
+	border: .1em solid: #aaa;
+
+}
+
+.valoracion aside>span{
+	font-size: 1.3em;
+	display: inline-block;
+	float:left;
+}
+
+.valoracion aside:hover>span
+{
+	color:#f80;
+}
+
+.valoracion span:hover ~ span{
+	color: #000;
+}
+
+/*estrellitas para la portada*/
+article .valoracion
+{
+	text-align: center;
+}
+
+article .valoracion aside:hover>span 
+{
+	color:yellow;
+} 
+
+article .valoracion span:hover ~ span{
+	color: #000;
+}
+/*fin de estrellitas*/
+
+/*Inicio de campos de formulario*/
+.input{
+	transition: all 0.15s ease-in-out;
+}
+.input:focus{
+  box-shadow: 2px 2px 5px rgba(71, 113, 142, 1);
+}
+.input:hover{
+  box-shadow: 1px 1px 5px rgba(103, 144, 173, 1);
+}
+#fPerfil{
+	max-height:200px;
+	max-width:200px;
+}
+/*mensajes de validación*/
+.error{
+	transition:0.1s;
+	color:#FE2F2F;
+	display:none;
+}
+.correcto{
+	transition:0.1s;
+	color:#77FB83;
+	display:none;
+}
+#maxTam{
+
+}
+/*fin de mensajes de validación*/
+
+/*Fin de campos de formulario*/
+
+/*fecha de los comentarios*/
+.fecha_comentarios
+{
+	display:block;
+	font-style: italic;
+	font-size: 0.5em;
+}
+/*pantalla zoom*/
+.zoom
+{
+	z-index: -10;
+	position:absolute;
+	transition:all .1s ease;
+	height: 100%;
+	width:100%;
+	max-height:100%;
+	max-width:100%;
+	opacity: 0;
+}
+
+.zoom_visible
+{
+	z-index: 10;
+	opacity: 0.95;
+	background-color: black;
+	left:0;
+	bottom:0;
+}
+
+.bloqueo
+{
+	overflow-x:hidden;
+	overflow-y:hidden;
+	margin:0 0 0 0;
+	padding: 0 0 0 0; 
+}
+
+.mensaje
+{
+	text-align: center;
+	width:50%;
+	height: auto;
+	position: absolute;
+	background-color: white;
+	opacity: 1;
+	top:25%;
+	left:25%;
+	font-size: 0.8em;
+}
+/*media querys*/
+@media (min-width: 550px) {
+	section
+	{
+		display: flex;
+		flex-direction: row;
+    	flex-wrap:wrap;
+    	justify-content:center;
+    	align-items:baseline;
+    	align-content:space-around;
+    	width:100%;
+	}
+
+	section>article
+	{
+		align-self:baseline;
+		width:40%;
+	}
+
+	section>article:hover
+	{
+		background-color:none;
+		border:none;
+	}
+
+	.login
+	{
+		width:40%;
+	}
+}
+@media (min-width: 700px)  /* en esta parte ya consideramos que es una pantalla grande de pc o de una table grande*/
+{
+	section
+	{
+		display: flex;
+		flex-direction: row;
+    	flex-wrap:wrap;
+    	justify-content:center;
+    	align-items:baseline;
+    	align-content:space-around;
+    	width:100%;
+	}
+
+	section>article
+	{
+		align-self:baseline;
+		width:28%;
+	}
+
+	article > img
+	{
+		padding-left: 10%;
+		padding-right: 10%;
+		max-width: 80%;
+	}
+
+	section>article:hover
+	{
+		background-color:#6790AD;
+		border:none;
+		color:white;
+	}
+
+	article > a:hover
+	{
+		text-decoration: none;
+		color:white;
+	}
+
+	article > a:active
+	{
+		text-decoration: none;
+		color:blue;
+		border: 0.1em solid white;
+	}
+	
+	/*Imagen leer mas*/
+	article .hoveroculto{
+		position: relative;
+	}
+	article .hoveroculto > span{
+		position: absolute;
+		top: 0;
+		opacity: 0;
+		transition: 1s;
+		padding: 10%;
+		display:block;
+	}
+	article .hoveroculto:hover > img{
+		opacity: 0;
+	}
+	article .hoveroculto:hover > span{
+		opacity: 1;
+	}
+	/*corregimos el nav aun z-index mayor para el leer mas y las estrellitas*/
+	nav
+	{
+		z-index: 5;
+	}
+	article .valoracion
+	{
+		position:relative;
+	}
+	/*Aqui definimos la barra de menu*/
+	#menu
+	{	
+		position:fixed;
+		width:100%;
+		top:0;
+		left:0;
+		border: none;
+		height:auto;
+		background-color:#47708E; 
+		opacity: 1;
+		transition:none;
+		text-align: center;
+		color:white;
+	}
+
+	#menu > ul 
+	{
+		padding: 0 0 0 0;
+		display:flex;
+		align-items:baseline;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	#menu>h3
+	{
+		display:none;
+	}
+
+	#menu>ul>li
+	{
+		list-style: none;
+		background-color: #6790AD;
+		border:0.01em solid white;
+		margin-right: auto;
+		margin-left:auto;
+		width:auto;
+		float:left;
+		flex-grow:2;
+	}	
+
+	#menu>ul>li>a,menu>ul>li>a:hover
+	{
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	input[type="checkbox"]#menu-toogle + label span
+	{
+		display:none;
+	}
+
+	#menu>ul>li:hover
+	{
+		list-style: none;
+		background-color: #6790AD;
+		border:0.01em solid white;
+		margin-right: auto;
+		margin-left:auto;
+		width:auto;
+		float:left;
+	}
+
+	#menu>ul>li>a:hover
+	{
+		color:yellow;
+	}
+
+	#banner
+	{
+		margin-top: 5%;
+	}
+	/*comentarios*/
+	.comentario_index
+	{
+		display:flex;
+		flex-wrap:wrap;
+		width:93%;
+		padding-left: 6%;
+		align-items:baseline;
+		align-content:center;
+	}
+
+	.sangria_default
+	{
+		padding-left: 6%;
+	}
+
+	.comentario_index p 
+	{
+		width: 23%;
+		flex-grow:1;
+	}
+
+	.comentario_index hr
+	{
+		display:none;
+	}
+};
+
+
+@media (min-width: 1024px) 
+{
+	section
+	{
+		display: flex;
+		flex-direction: row;
+    	flex-wrap:wrap;
+    	justify-content:center;
+    	align-items:baseline;
+    	align-content:space-around;
+    	width:100%;
+	}
+
+	section>article
+	{
+		align-self:baseline;
+		width:25%;
+	}
+
+	article > img
+	{
+		padding-left: 10%;
+		padding-right: 10%;
+		max-width: 80%;
+	}
+
+	.checkbox#menu-toogle ~ label span
+	{
+		position:fixed;
+	}
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>jTravel > Login</title>
+	<link rel="stylesheet" type="text/css" href="css/estilos.css"/>
+	<link rel="stylesheet" type="text/css" href="css/fontello.css"/>
+	<link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'/>
+	<script type="text/javascript" src="/practica2/js/registro.js"></script>
+	<script type="text/javascript" src="/practica2/js/funciones_genericas.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+</head>
+<body onload="arranque(); arranque_reg()">
+	<div class="zoom" id="zoo"><div class="mensaje" id="mensaje"></div></div>
+	<input type="checkbox" class="checkbox" id="menu-toogle"/>
+	<label for="menu-toogle"><span></span></label>
+	<div id="banner">
+		<img src="img/logotipo.png" height="100" width="100" alt="Logotipo de la pagina">
+		<h1>jTravel</h1>
+		<h3>The Experience</h3>
+	</div>
+	<nav id="menu">
+		<h3>Menu Despegable</h3>
+		<ul id="menu_lista">
+			<li><a href="index.html">Inicio</a></li>
+			<li><a href="buscar_viajes.html"><span class="icon-search"></span>Buscar Viaje</a></li>
+			<li><a href="crear_viaje.html"><span class="icon-pencil"></span>Crear Viaje</a></li>
+			<li><a href="registro.html"><span class="icon-user-add-outline"></span>Registro</a></li>
+			<li><a href="registro.html"><span class="icon-users"></span>Perfil</a></li>
+			<li><a href="login.html"><span class="icon-users"></span>Login</a></li>
+			<li><a href="acerca.html"><span class="icon-user"></span>Nosotros</a></li>
+			<li><a href="#" onclick="cerrar();">Cerrar Sesion</a></li>
+		</ul>
+	</nav>
+	<main class="login centrado">
+	<fieldset>
+    <legend id="info_perfil">Registrarse:</legend>
+			<header>
+				<h1 id="titu_perfil">¡Regístrate!</h1>
+			</header>
+			<p id="info_extra">Aquí te puedes registrar.</p>
+			<form name="registro" onsubmit="return envio();" method="POST" enctype="multipart/form-data">
+
+				<p class = "error" id="usr_no_disponible" > Usuario no disponible <br> </p>
+				<p class = "correcto" id="usr_disponible" > El usuario está disponible <br> </p>
+
+				<label for="userregis">Usuario:</label><br/><input type="text" name="userregis" id="userregis"  class="input" pattern="[a-zA-Z]{1}[a-zA-Z0-9]{0,19}" required autofocus onkeyup="compruebausu()"/>
+				<br/>
+				<label  for="password">Contraseña:</label><br/><input type="password" name="password" id="password" class="input" pattern="[_a-zA-Z0-9-]{1,20}" required />
+				<br/>
+				<p class = "error" id="pass_no_iguales" > Las contraseñas no coinciden <br> </p>
+				<label  for="password2">Repite la contraseña:</label><br/><input type="password" name="password2" id="password2" class="input" onkeyup="comparaPassword()" pattern="[_a-zA-Z0-9-]{1,20}" required />
+				<br/
+				<label for="nombre_user">Nombre completo:</label><br/><input type="text" name="nombre_user" id="nombre_user"  class="input" required/>
+				<br/>
+				<label for="email">Email:</label><br/><input type="email" name="email" id="email"  class="input" required />
+				<br/>
+
+				<p id="archivo_muy_grande" class = "error"> El archivo no debe superar 500 KB<br> </p>
+				<label for="subir">Subir imagen de perfil:</label><br/><input type="file" name="subir" id="subir" onchange="previsualizar()">
+				<br/>
+				<img src="" alt="" id="fPerfil"/>
+				<br/>
+				<input type="submit"  id="env" value="Registro"/>
+			</form>
+	</fieldset>
+	</main>
+	<footer class="footer">
+		<p>
+			<span>jTravel&copy;</span>
+			<time datetime="2016">2016</time>
+		</p>
+	</footer>
+</body>
+</html>
