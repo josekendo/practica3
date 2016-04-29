@@ -2,16 +2,16 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<title>jTravel > Acerca</title>
+	<title>jTravel > Juego</title>
 	<link rel="stylesheet" type="text/css" href="css/estilos.css"/>
 	<link rel="stylesheet" type="text/css" href="css/fontello.css"/>
 	<link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
 	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'/>
-	<script type="text/javascript" src="/practica2/js/acerca.js"></script>
-	<script type="text/javascript" src="/practica2/js/funciones_genericas.js"></script>
+	<script type="text/javascript" src="/practica3/js/juego.js"></script>
+	<script type="text/javascript" src="/practica3/js/funciones_genericas.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
-<body onload="arranque();">
+<body onload="arranque();arranquep();">
 		<input type="checkbox" class="checkbox" id="menu-toogle"/>
 	<label for="menu-toogle"><span></span></label>
 	<div id="banner">
@@ -32,10 +32,10 @@
 			<header>
 				<h1>Hundir la tropa:</h1>
 			</header>
-			<div>
-				<canvas id="game"></canvas><br/>
-				<button type="button">Jugar</button>
-				<button type="button">Apuntar y disparar</button>
+			<div style="text-align:center;">
+				<canvas id="game" style="text-align:center;"></canvas><br/>
+				<button type="button" disabled>Jugar</button>
+				<button type="button" disabled>Apuntar y disparar</button>
 				<button type="button">Registrarse</button>
 				<button type="button">Login</button>
 			</div>
