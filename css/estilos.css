@@ -74,6 +74,12 @@ body
 	opacity: 1;
 }
 
+#game
+{
+	height:70%;
+	width:70%;
+	border: 2px solid black;
+}
 .checkbox:checked#menu-toogle ~ #menu /* ~ hermanos*/
 {
       left:0%; /*Le quitamos el left negativo para que el menú vuelva a su posición original*/

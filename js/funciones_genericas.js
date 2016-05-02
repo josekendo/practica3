@@ -17,7 +17,7 @@ function comprobar_storage()
 function arranque()
 {
 	comp=comprobar_storage();
-	if(comp)
+	/*if(comp)
 	{
 		//comprobamos si esta logueado o no
 		if(sessionStorage.getItem("login_session"))
@@ -35,7 +35,7 @@ function arranque()
 	else
 	{
 		//Aqui meteremos un mensaje por defecto que salga si el navegador no es compatible
-	}
+	}*/
 }
 
 function borrar_lista(a_borrar)
