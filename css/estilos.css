@@ -74,11 +74,20 @@ body
 	opacity: 1;
 }
 
-#game
+#game/*Practica barco*/
 {
-	height:70%;
-	width:70%;
+	height:33%;
+	width:33%;
 	border: 2px solid black;
+	text-align:center;
+}
+
+#barcos/*Practica barco*/
+{
+	height:33%;
+	width:33%;
+	border: 2px solid black;
+	text-align:center;
 }
 .checkbox:checked#menu-toogle ~ #menu /* ~ hermanos*/
 {
