@@ -117,6 +117,25 @@ function crear_barcos()
 	cbx.fillRect(40,40,20,20);
 	cbx.fillRect(60,40,20,20);
 	cbx.fillRect(80,40,20,20);
+	cbx.fillStyle = "#FE2E2E";
+	cbx.fillRect(20,90,20,20);
+	cbx.fillRect(40,90,20,20);
+	cbx.fillRect(60,90,20,20);
+	cbx.fillRect(100,90,20,20);
+	cbx.fillRect(120,90,20,20);
+	cbx.fillRect(140,90,20,20);
+	cbx.fillStyle = "#FFFF00";
+	cbx.fillRect(20,140,20,20);
+	cbx.fillRect(40,140,20,20);
+	cbx.fillRect(80,140,20,20);
+	cbx.fillRect(100,140,20,20);
+	cbx.fillRect(140,140,20,20);
+	cbx.fillRect(160,140,20,20);
+	cbx.fillStyle = "#2EFE2E";
+	cbx.fillRect(20,190,20,20);
+	cbx.fillRect(60,190,20,20);
+	cbx.fillRect(100,190,20,20);
+	cbx.fillRect(140,190,20,20);
 }
 //con esta funcion obtenemos la posicion convertida a canvas
 function getPosition(event)
