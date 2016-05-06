@@ -44,7 +44,12 @@ function procesarCambio2()//procesar cambio para jugadores
 //arranque para el index
 function arranque_personalizado()
 {
-	peticionAJAX_GET("/practica2/rest/viaje/?u=6");//conexion para los comentarios [funcional]
+	//peticionAJAX_GET("/practica2/rest/viaje/?u=6");//conexion para los comentarios [funcional]
+		if(sessionStorage.getItem("login_session"))
+		{
+			//si esta logueado
+			getElementById(noregistrado).display = none;
+		}
 }
 
 //mostrar datos en comentarios
