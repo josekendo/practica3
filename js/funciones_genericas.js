@@ -13,7 +13,10 @@ function comprobar_storage()
 
 	}
 }
-
+function hla ()
+{
+	alert("HOLASO");
+}
 function arranque()
 {
 	comp=comprobar_storage();
