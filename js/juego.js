@@ -8,8 +8,8 @@ function arranquep()
 {
 	cv = document.getElementById("game");
 	ctx = cv.getContext("2d");
-	cb = document.getElementById("barcos");
-	cbx = cb.getContext("2d");
+	// cb = document.getElementById("barcos");
+	// cbx = cb.getContext("2d");
 	//ctx.fillRect(0, 0, 100, 100);
 	cw = ((cv.width / 11).toFixed(1));//anchura del lienzo dividido entre 11 casillas
 	ch = ((cv.height / 11).toFixed(1));//altura del lienzo dividido entre 11 casillas
@@ -21,6 +21,7 @@ function arranquep()
 			coordenadas = getPosition(e);
 			colorearcuadro(coordenadas["x"],coordenadas["y"]);
 	};
+
 	
 	//con esto que el dedo a sido levantado
 	cv.onmouseup = function(e)
@@ -105,38 +106,38 @@ function hacertablero()
 
 }
 //crear la parte de barcos 
-function crear_barcos()
-{
-	cbx.fillText("Barcos Disponibles",6,10);
-	cbx.fillText("Portaaviones",20,30);
-	cbx.fillText("Acorazados",20,80);
-	cbx.fillText("Buques",20,130);
-	cbx.fillText("Submarinos",20,180);
-	cbx.fillStyle = "#00BFFF";
-	cbx.fillRect(20,40,20,20);
-	cbx.fillRect(40,40,20,20);
-	cbx.fillRect(60,40,20,20);
-	cbx.fillRect(80,40,20,20);
-	cbx.fillStyle = "#FE2E2E";
-	cbx.fillRect(20,90,20,20);
-	cbx.fillRect(40,90,20,20);
-	cbx.fillRect(60,90,20,20);
-	cbx.fillRect(100,90,20,20);
-	cbx.fillRect(120,90,20,20);
-	cbx.fillRect(140,90,20,20);
-	cbx.fillStyle = "#FFFF00";
-	cbx.fillRect(20,140,20,20);
-	cbx.fillRect(40,140,20,20);
-	cbx.fillRect(80,140,20,20);
-	cbx.fillRect(100,140,20,20);
-	cbx.fillRect(140,140,20,20);
-	cbx.fillRect(160,140,20,20);
-	cbx.fillStyle = "#2EFE2E";
-	cbx.fillRect(20,190,20,20);
-	cbx.fillRect(60,190,20,20);
-	cbx.fillRect(100,190,20,20);
-	cbx.fillRect(140,190,20,20);
-}
+ function crear_barcos()
+ {
+// 	cbx.fillText("Barcos Disponibles",6,10);
+// 	cbx.fillText("Portaaviones",20,30);
+// 	cbx.fillText("Acorazados",20,80);
+// 	cbx.fillText("Buques",20,130);
+// 	cbx.fillText("Submarinos",20,180);
+// 	cbx.fillStyle = "#00BFFF";
+// 	cbx.fillRect(20,40,20,20);
+// 	cbx.fillRect(40,40,20,20);
+// 	cbx.fillRect(60,40,20,20);
+// 	cbx.fillRect(80,40,20,20);
+// 	cbx.fillStyle = "#FE2E2E";
+// 	cbx.fillRect(20,90,20,20);
+// 	cbx.fillRect(40,90,20,20);
+// 	cbx.fillRect(60,90,20,20);
+// 	cbx.fillRect(100,90,20,20);
+// 	cbx.fillRect(120,90,20,20);
+// 	cbx.fillRect(140,90,20,20);
+// 	cbx.fillStyle = "#FFFF00";
+// 	cbx.fillRect(20,140,20,20);
+// 	cbx.fillRect(40,140,20,20);
+// 	cbx.fillRect(80,140,20,20);
+// 	cbx.fillRect(100,140,20,20);
+// 	cbx.fillRect(140,140,20,20);
+// 	cbx.fillRect(160,140,20,20);
+// 	cbx.fillStyle = "#2EFE2E";
+// 	cbx.fillRect(20,190,20,20);
+// 	cbx.fillRect(60,190,20,20);
+// 	cbx.fillRect(100,190,20,20);
+// 	cbx.fillRect(140,190,20,20);
+ }
 //con esta funcion obtenemos la posicion convertida a canvas
 function getPosition(event)
 {
