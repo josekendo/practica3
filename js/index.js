@@ -209,3 +209,42 @@ function foormatear(datos,que_es)//"que_es" segun lo que sea se pone de una form
 		console.log("no se sabe lo que es por lo que no se procesa la informacion");	
 	}
 }
+
+function ordenar_descentemente(metodo)
+{
+	nodo2=document.getElementById("clasificaciones");
+	listadeelementos=nodo2.getElementsByTagName("tr");
+	for (var p = 1;listadeelementos.length > p; p++) 
+	{
+		for (var t = 1;listadeelementos.length > t; t++) 
+		{
+			valor1="";
+			valor2="";
+			if(metodo == 1) //si se ordena por ganadas
+			{
+				valor1 = listadeelementos[t].getElementsByTagName("td")[1].innerHTML;
+				if((t+1) < listadeelementos.length)
+				{
+					valor2 = listadeelementos[t+1].getElementsByTagName("td")[1].innerHTML;
+				}
+			}
+			else if(metodo == 2) //si se ordena por victorias
+			{
+				valor1 = listadeelementos[t].getElementsByTagName("td")[3].innerHTML;
+				if((t+1) < listadeelementos.length)
+				{
+					valor2 = listadeelementos[t+1].getElementsByTagName("td")[3].innerHTML;
+				}
+			}
+			
+			if(valor2 != "")
+			{
+				if(parseInt(valor1) < parseInt(valor2))
+				{
+					nodo2.insertBefore(listadeelementos[t+1],listadeelementos[t]);
+					console.log("valor1 es menor que valor2 "+valor1+"--"+valor2);
+				}
+			}
+		}
+	}
+}
