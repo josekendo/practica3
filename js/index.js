@@ -184,9 +184,9 @@ function foormatear(datos,que_es)//"que_es" segun lo que sea se pone de una form
 			fila=document.createElement("tr");
 			fila.innerHTML = 
 			'<th> Usuario:&nbsp;</th>'
-			+'<th> Jugadas: <span>&dArr;</span>&nbsp;</th>'
+			+'<th> Jugadas: <span onclick="ordenar_descentemente(1);">&dArr;</span>&nbsp;</th>'
 			+'<th> Ganadas: &nbsp;</th>'
-			+'<th> %Victorias: <span>&dArr;</span>&nbsp;</th>'
+			+'<th> %Victorias: <span onclick="ordenar_descentemente(2);">&dArr;</span>&nbsp;</th>'
 			+'<th> %Derrotas: &nbsp;</th>';
 			nodo2.appendChild(fila);
 			for (var t = datos.FILAS.length - 1; t >= 0; t--) 
@@ -203,6 +203,7 @@ function foormatear(datos,que_es)//"que_es" segun lo que sea se pone de una form
 				+'<td>'+((100/(parseInt(jugadas))*(parseInt(jugadas)-parseInt(ganadas)))).toFixed(0)+'%</td>';
 				nodo2.appendChild(fila);
 			}
+			ordenar_descentemente(1);
 	}
 	else
 	{
@@ -230,10 +231,10 @@ function ordenar_descentemente(metodo)
 			}
 			else if(metodo == 2) //si se ordena por victorias
 			{
-				valor1 = listadeelementos[t].getElementsByTagName("td")[3].innerHTML;
+				valor1 = listadeelementos[t].getElementsByTagName("td")[3].innerHTML.replace("%","");
 				if((t+1) < listadeelementos.length)
 				{
-					valor2 = listadeelementos[t+1].getElementsByTagName("td")[3].innerHTML;
+					valor2 = listadeelementos[t+1].getElementsByTagName("td")[3].innerHTML.replace("%","");
 				}
 			}
 			
