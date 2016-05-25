@@ -4,6 +4,18 @@ var cw=0;
 var ch=0;
 var botonpulsado=false;
 var tablero_posiciones= new Array();
+
+var dragItems = document.querySelectorAll('[draggable=true]');
+//codigo de adaptacion a firefox (firefox solo permite algunos objetos draggables)
+for (var i = 0; i < dragItems.length; i++) {
+  addEvent(dragItems[i], 'dragstart', function (event) {
+    // store the ID of the element, and collect it on the drop later on
+    alert("draggeado wey");
+    event.dataTransfer.setData('Text', this.id);
+  });
+}
+//fin de codigo de adaptacion a firefox
+
 function arranquep()
 {
 	cv = document.getElementById("game");
@@ -108,6 +120,11 @@ function hacertablero()
 //crear la parte de barcos 
  function crear_barcos()
  {
+ 	var c=document.getElementById("barco1");
+	var cbx=c.getContext("2d");
+
+ 	cbx.fillStyle = "#00BFFF";
+ 	cbx.fillRect(0,0,20,20);
 // 	cbx.fillText("Barcos Disponibles",6,10);
 // 	cbx.fillText("Portaaviones",20,30);
 // 	cbx.fillText("Acorazados",20,80);
@@ -233,4 +250,8 @@ function cuadrar(h)
 	}
 	
 	return t;
+}
+//drag & drop stuff
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
 }

@@ -36,8 +36,12 @@
 			</header>
 			<div>
 				<p>Coordenadas: X = <span id="coordenadax"></span> Y = <span id="coordenaday"></span></p>
-				<canvas id="game" style="text-align:center;" width="220" height="220"></canvas>
-				<canvas id="barcos" style="text-align:center;" width="220" height="220"></canvas><br/>
+				<canvas id="game" style="text-align:center;" width="220" height="220">Tu navegador no soporta HTML5 Canvas :(</canvas>
+
+				<div id="barcos style="text-align:center;" width="220" height="220""> 
+				<canvas id="barco1" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+				</div>
+				<!-- <br/> -->
 				<button type="button" style="text-align:center;"disabled>Jugar</button>
 				<button type="button" style="text-align:center;" disabled>Rotar Barcos 90º</button>
 			</div>
