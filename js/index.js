@@ -1,7 +1,5 @@
 var obj;//contiene instancia de ajax viajes
-var obj2;//contiene instancia de ajax comentarios 
-var viajes="nada";//contiene los viajes cargados
-var comentarios="nada";//contiene los comentarios cargados 
+var obj2;//contiene instancia de ajax comentarios
 
 
 
@@ -17,7 +15,6 @@ function peticionAJAX_GET2(url)//peticion para ajax de jugadores
 		obj2.send(); // Se envía la petición
 	}
 }
-
 
 
 function procesarCambio2()//procesar cambio para jugadores
@@ -50,35 +47,7 @@ function arranque_personalizado()
 			//si esta logueado
 			getElementById(noregistrado).display = none;
 		}
-}
-
-//mostrar datos en comentarios
-function foormatear_comentarios(b)
-{
-/*	nodo2=document.getElementById("come");//nodo div de index
-	while(nodo2.hasChildNodes())//con esto eliminamos todos los comentarios que hayan antes
-	{
-		nodo2.removeChild(nodo2.firstChild);	
- 	}
-	//vamos a contar cuantos viajes hay
-	for (var t = b.FILAS.length - 1; t >= 0; t--) 
-	{
-		//asignamos las datos a variables mas simples
-		idc=b.FILAS[t].ID;
-		tituloc=b.FILAS[t].TITULO;
-		texto=b.FILAS[t].TEXTO;
-		fecha=b.FILAS[t].FECHAHORA;
-		idv=b.FILAS[t].ID_VIAJE;
-		usuc=b.FILAS[t].LOGIN;
-		nv=b.FILAS[t].NOMBRE_VIAJE;
-		//fin de la asignacion
-		//la publicamos
-		articulo2=document.createElement("p");
-		articulo2.innerHTML="<span>"+usuc+" -> </span>"+texto+"<span class='fecha_comentarios'><a href='viaje.html?id="+idv+"#comentario"+idc+"'>Ir</a><time datetime='"+fecha+"'>"+fecha+"</time></span>";
-		nodo2.appendChild(articulo2);
-	}
-	console.log("monstrando comentarios");
-*/
+		llamada_ajax_generico("GET","clasificacion");
 }
 
 function registro() //cuando le das a login aparecera esta pantalla
@@ -119,7 +88,7 @@ function registro() //cuando le das a login aparecera esta pantalla
 	}
 }
 
-function login() //cuando le das a login aparecera esta pantalla
+function logearse()//cuando le das a login aparecera esta pantalla
 {
 	texto = "nada";
 	ventana = document.getElementById('zoo');
@@ -137,7 +106,6 @@ function login() //cuando le das a login aparecera esta pantalla
 			+"<label  for='password'>Contraseña:</label><br/><input type='password' name='password' id='password' pattern='[a-zA-Z0-9]+' required />"
 			+"</br></br><input type='submit'  id='env' value='Login'/></form>"
 			+"<br/><a href='#' onclick='cerrar()'>Cerrar</a>";
-		
 		}
 
 		ventana.classList.add('zoom_visible');
@@ -150,5 +118,94 @@ function login() //cuando le das a login aparecera esta pantalla
 		{
 			setTimeout("redireccion_registro()",3*1000);
 		}
+	}
+}
+
+function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" o "GET",a donde debe ser una ruta conocida y implementada en el codigo si no se hara una llamada generica a ese punto
+{
+	obj_ajax= crearObjAjax();//creamos la conexion ajax
+	if(obj_ajax) //comprobamos que exista
+	{ 
+		parametros_extras="";
+		url=""
+		// Si se ha creado el objeto, se sigue ejecutando la peticion ...
+		// Se establece la función (callback) a la que llamar cuando cambie el estado en este caso procesar_cambios que sera personalizado
+		if(a_donde == "clasificacion")//funcionamiento correcto
+		{
+			obj_ajax.onreadystatechange= procesar_cambios_de_clasificacion; // función callback: procesarCambio para comentarios	
+			url = "rest/clasificacion/";
+			parametros_extras = "?c=10";
+		}
+		else if(a_donde == "")
+		{
+			console.log("no se ha puesto a donde");
+		}
+		
+		obj_ajax.open(tipo_de_llamada,url+parametros_extras, false); // Se crea petición GET a url, asíncrona ("true")
+		obj_ajax.send(); // Se envía la petición
+	}
+	else
+	{
+		console.warn('No existe "obj_ajax"');
+	}
+}
+
+function procesar_cambios_de_clasificacion()
+{
+	if(obj_ajax.readyState == 4)
+	{ 
+		// valor 4: respuesta recibida y lista para ser procesada
+		if(obj_ajax.status == 200)
+		{ 
+			// El valor 200 significa que ha ido todo bien en la carga
+			// Aquí se procesa lo que se haya devuelto:
+			console.log("se ha terminado la carga de datos clasificacion -> devolviendo");//devolvemos mensaje por log
+			clasificacion=JSON.parse(obj_ajax.responseText);//creamos el objeto datos con los datos parseados
+			console.log("informacion devuelta:"+obj_ajax.responseText);//devolvemos por consola sus valores devueltos
+			foormatear(clasificacion,"clasificacion");//mostramos la informacion en la pagina 
+		}
+		else 
+		{
+			console.warn("no se ha podido completar la peticion ajax-html de index-clasificacion");//devolvemos mensaje por log
+			//zoom_activo();//activamos el slider sin opcion que significa que ha ido mal
+		}
+	}
+}
+
+function foormatear(datos,que_es)//"que_es" segun lo que sea se pone de una forma o otra
+{
+	if(que_es == "clasificacion")
+	{
+			nodo2=document.getElementById("clasificaciones");//nodo div de index
+			while(nodo2.hasChildNodes())//con esto eliminamos todos los comentarios que hayan antes
+			{
+				nodo2.removeChild(nodo2.firstChild);	
+			}
+			fila=document.createElement("tr");
+			fila.innerHTML = 
+			'<th> Usuario:&nbsp;</th>'
+			+'<th> Jugadas: <span>&dArr;</span>&nbsp;</th>'
+			+'<th> Ganadas: &nbsp;</th>'
+			+'<th> %Victorias: <span>&dArr;</span>&nbsp;</th>'
+			+'<th> %Derrotas: &nbsp;</th>';
+			nodo2.appendChild(fila);
+			for (var t = datos.FILAS.length - 1; t >= 0; t--) 
+			{
+				login=datos.FILAS[t].LOGIN;
+				jugadas=datos.FILAS[t].JUGADAS;
+				ganadas=datos.FILAS[t].GANADAS;
+				fila=document.createElement("tr");
+				fila.innerHTML = 
+				'<td id="'+login+'">'+login+'</td>'
+				+'<td>'+jugadas+'</td>'
+				+'<td>'+ganadas+'</td>'
+				+'<td>'+((100/(parseInt(jugadas))*parseInt(ganadas))).toFixed(0)+'%</td>'
+				+'<td>'+((100/(parseInt(jugadas))*(parseInt(jugadas)-parseInt(ganadas)))).toFixed(0)+'%</td>';
+				nodo2.appendChild(fila);
+			}
+	}
+	else
+	{
+		console.log("no se sabe lo que es por lo que no se procesa la informacion");	
 	}
 }
