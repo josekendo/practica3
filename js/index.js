@@ -45,8 +45,9 @@ function arranque_personalizado()
 		if(sessionStorage.getItem("login_session"))
 		{
 			//si esta logueado
-			getElementById(noregistrado).display = none;
+			document.getElementById("noregistrado").style.display = 'none';
 		}
+		
 		llamada_ajax_generico("GET","clasificacion");
 }
 
@@ -62,7 +63,7 @@ function registro() //cuando le das a login aparecera esta pantalla
 		{
 			mensaje.innerHTML = 
 			"<h2 style='color:green;'>"
-			+"Registro</a></h2>"
+			+"Registro</h2>"
 			+"<form name='registro' onsubmit='return envio();' method='POST' enctype='multipart/form-data'>"
 			+"<label for='userregis'>Usuario:</label><br/><input type='text' name='userregis' id='userregis'  class='input' pattern='[a-zA-Z]{1}[a-zA-Z0-9]{0,19}' required autofocus onkeyup='compruebausu()'/>"
 			+"<br/><label  for='password'>Contraseña:</label><br/><input type='password' name='password' id='password' class='input' pattern='[_a-zA-Z0-9-]{1,20}' required />"
@@ -90,34 +91,21 @@ function registro() //cuando le das a login aparecera esta pantalla
 
 function logearse()//cuando le das a login aparecera esta pantalla
 {
-	texto = "nada";
 	ventana = document.getElementById('zoo');
 	mensaje = document.getElementById('mensaje');
 	if(!ventana.classList.contains('zoom_visible'))
 	{
 		subir();
-		if(texto == "nada")
-		{
-			mensaje.innerHTML = 
+		mensaje.innerHTML = 
 			"<h2 style='color:green;'>"
-			+"Login</a></h2>"
-			+"<form class='login'>"
+			+"Login</h2>"
+			+"<form onsubmit='return llamada_ajax_generico(&#34;POST&#34;,&#34;logearse&#34;);'>"
 			+"<label  for='login'>Usuario:</label><br/><input type='text' name='userlogin' id='userlogin' pattern='[a-zA-Z0-9]+' required /></br>"
 			+"<label  for='password'>Contraseña:</label><br/><input type='password' name='password' id='password' pattern='[a-zA-Z0-9]+' required />"
-			+"</br></br><input type='submit'  id='env' value='Login'/></form>"
+			+"</br></br><input type='submit' id='env' value='Login'/></form>"
 			+"<br/><a href='#' onclick='cerrar()'>Cerrar</a>";
-		}
-
 		ventana.classList.add('zoom_visible');
 		document.body.classList.add('bloqueo');
-		if(texto == "nada")
-		{
-			setTimeout("redireccion_login()",3*1000);
-		}
-		else
-		{
-			setTimeout("redireccion_registro()",3*1000);
-		}
 	}
 }
 
@@ -127,7 +115,8 @@ function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" 
 	if(obj_ajax) //comprobamos que exista
 	{ 
 		parametros_extras="";
-		url=""
+		url="";
+		datos="";
 		// Si se ha creado el objeto, se sigue ejecutando la peticion ...
 		// Se establece la función (callback) a la que llamar cuando cambie el estado en este caso procesar_cambios que sera personalizado
 		if(a_donde == "clasificacion")//funcionamiento correcto
@@ -136,18 +125,30 @@ function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" 
 			url = "rest/clasificacion/";
 			parametros_extras = "?c=10";
 		}
+		else if(a_donde == "logearse")
+		{
+			obj_ajax.onreadystatechange= entrando; // función callback: procesarCambio para comentarios	
+			url = "rest/login/";
+			use = document.getElementById("userlogin").value;
+			pas = document.getElementById("password").value;
+			datos = new FormData();
+			datos.append("login",use);
+			datos.append("pwd",pas);
+		}
 		else if(a_donde == "")
 		{
 			console.log("no se ha puesto a donde");
 		}
 		
 		obj_ajax.open(tipo_de_llamada,url+parametros_extras, false); // Se crea petición GET a url, asíncrona ("true")
-		obj_ajax.send(); // Se envía la petición
+		obj_ajax.send(datos); // Se envía la petición	
 	}
 	else
 	{
 		console.warn('No existe "obj_ajax"');
 	}
+	
+	return false;
 }
 
 function procesar_cambios_de_clasificacion()
@@ -163,6 +164,27 @@ function procesar_cambios_de_clasificacion()
 			clasificacion=JSON.parse(obj_ajax.responseText);//creamos el objeto datos con los datos parseados
 			console.log("informacion devuelta:"+obj_ajax.responseText);//devolvemos por consola sus valores devueltos
 			foormatear(clasificacion,"clasificacion");//mostramos la informacion en la pagina 
+		}
+		else 
+		{
+			console.warn("no se ha podido completar la peticion ajax-html de index-clasificacion");//devolvemos mensaje por log
+			//zoom_activo();//activamos el slider sin opcion que significa que ha ido mal
+		}
+	}
+}
+
+function entrando()
+{
+	if(obj_ajax.readyState == 4)
+	{ 
+		// valor 4: respuesta recibida y lista para ser procesada
+		if(obj_ajax.status == 200)
+		{ 
+			// El valor 200 significa que ha ido todo bien en la carga
+			// Aquí se procesa lo que se haya devuelto:
+			console.log("se ha terminado la carga de datos logearse -> devolviendo");//devolvemos mensaje por log
+			console.log("informacion devuelta:"+obj_ajax.responseText);//devolvemos por consola sus valores devueltos
+			foormatear(obj_ajax.responseText,"logearse");//mostramos la informacion en la pagina 
 		}
 		else 
 		{
@@ -204,6 +226,11 @@ function foormatear(datos,que_es)//"que_es" segun lo que sea se pone de una form
 				nodo2.appendChild(fila);
 			}
 			ordenar_descentemente(1);
+	}
+	else if(que_es == "logearse")
+	{
+		sessionStorage.setItem("login_session",datos);//creamos los datos
+		location.reload();
 	}
 	else
 	{
