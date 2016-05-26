@@ -13,7 +13,7 @@
 	<script type="text/javascript" src="/practica3/js/funciones_genericas.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
-<body onload="arranque();arranquep();">
+<body onload="arranque('jugar');arranquep();">
 		<input type="checkbox" class="checkbox" id="menu-toogle"/>
 	<label for="menu-toogle"><span></span></label>
 	<div id="banner">
@@ -25,8 +25,11 @@
 		<h3>Menu Despegable</h3>
 		<ul id="menu_lista">
 			<li><a href="index.html">Inicio</a></li>
-			<li><a href="juego.html"><span class="icon-search"></span>Juego</a></li>
+			<li><a href="javascript:registro()"><span class="icon-search"></span>Registrate</a></li>
+			<li><a href="javascript:logearse()"><span class="icon-search"></span>Login</a></li>
+			<li><a href="juego.html">Jugar</a></li>
 			<li><a href="acerca.html"><span class="icon-user"></span>Nosotros</a></li>
+			<li><a href="javascript:cerrar()">Cerrar Sesion</a></li>
 			<!--<li><a href="#" onclick="cerrar();">Cerrar Sesion</a></li>-->
 		</ul>
 	</nav>
