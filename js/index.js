@@ -45,7 +45,13 @@ function arranque_personalizado()
 		if(sessionStorage.getItem("login_session"))
 		{
 			//si esta logueado
-			document.getElementById("noregistrado").style.display = 'none';
+			document.getElementById("noregistrado").getElementsByTagName("h4")[0].innerHTML = "Usted esta logeado, puede jugar.";
+			document.getElementById("noregistrado").getElementsByTagName("h4")[0].style.color = "green";
+			document.getElementById("noregistrado").style.display = "";
+		}
+		else
+		{
+			document.getElementById("noregistrado").style.display = "";
 		}
 		
 		llamada_ajax_generico("GET","clasificacion");

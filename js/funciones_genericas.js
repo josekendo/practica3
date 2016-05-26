@@ -20,25 +20,25 @@ function hla ()
 function arranque()
 {
 	comp=comprobar_storage();
-	/*if(comp)
+	if(comp)
 	{
 		//comprobamos si esta logueado o no
 		if(sessionStorage.getItem("login_session"))
 		{
 			//si esta logueado
-			borrar_lista("Registro,Login");
+			borrar_lista("Registrate,Login");
 		}
 		else
 		{
 			//no esta logueado
-			borrar_lista("Crear Viaje,Cerrar Sesion,Perfil");
+			borrar_lista("Cerrar Sesion,Jugar");
 		}
 		
 	}
 	else
 	{
 		//Aqui meteremos un mensaje por defecto que salga si el navegador no es compatible
-	}*/
+	}
 }
 
 function borrar_lista(a_borrar)
