@@ -69,13 +69,12 @@ function registro() //cuando le das a login aparecera esta pantalla
 		mensaje.innerHTML = 
 		"<h2 style='color:green;'>"
 		+"Registro</h2>"
-		+"<form name='registro' onsubmit='return envio();' method='POST' enctype='multipart/form-data'>"
+		+"<form name='registro' onsubmit='return llamada_ajax_generico(&#34;POST&#34;,&#34;registrarse&#34;);' method='POST' enctype='multipart/form-data'>"
 		+"<label for='userregis'>Usuario:</label><br/><input type='text' onkeyup='llamada_ajax_generico(&#34;GET&#34;,&#34;comprobacion_de_usuario&#34;)' name='userregis' id='userregis'  class='input' pattern='[a-zA-Z]{1}[a-zA-Z0-9]{0,19}' required autofocus/><span id='comprobacion'></span>"
-		+"<br/><label  for='password'>Contraseña:</label><br/><input type='password' name='password' id='password' class='input' pattern='[_a-zA-Z0-9-]{1,20}' required />"
-		+"<p class = 'error' id='pass_no_iguales' > Las contraseñas no coinciden <br> </p>"
-		+"<br><label  for='password2'>Repite la contraseña:</label><br/><input type='password' name='password2' id='password2' class='input' onkeyup='comparaPassword()' pattern='[_a-zA-Z0-9-]{1,20}' required />"
-		+"<br><label for='nombre_user'>Nombre completo:</label><br/><input type='text' name='nombre_user' id='nombre_user'  class='input' required/>"
-		+"<br><label for='email'>Email:</label><br/><input type='email' name='email' id='email'  class='input' required />"
+		+"<br/><label  for='password'>Contraseña:</label><br/><input type='password' name='password' id='password' class='input' pattern='[_a-zA-Z0-9-]{1,20}' onkeyup='comprobacionpass2();' required /><span id='comprobacionpass2'></span>"
+		+"<br><label  for='password2'>Repite la contraseña:</label><br/><input type='password' name='password2' id='password2' class='input' onkeyup='comparaPassword()' pattern='[_a-zA-Z0-9-]{1,20}' required /><span id='comprobacionpass'></span>"
+		+"<br><label for='nombre_user'>Nombre completo:</label><br/><input type='text' onkeyup='nomok();' name='nombre_user' id='nombre_user'  class='input' required/><span id='nomok'></span>"
+		+"<br><label for='email'>Email:</label><br/><input type='email' onkeyup='emailok();' name='email' id='email'  class='input' required /><span id='emailok'></span>"
 		+"</br><input type='submit'  id='env' value='Registro'/></form><div id='errores' style='width:100%;'></div>"
 		+"<a href='#' onclick='cerrar()'>Cerrar</a>";
 		ventana.classList.add('zoom_visible');
@@ -212,7 +211,8 @@ function comprobaciondeusuario()
 			console.log("se ha terminado la carga de datos registro-comprobacionusuario -> devolviendo");//devolvemos mensaje por log
 			console.log("informacion devuelta:"+obj_ajax.responseText);//devolvemos por consola sus valores devueltos
 			resultado=JSON.parse(obj_ajax.responseText);
-			foormatear(resultado,"comprobacion_de_usuario");
+			result = foormatear(resultado,"comprobacion_de_usuario");
+			return result;
 		}
 		else 
 		{
@@ -265,12 +265,14 @@ function foormatear(datos,que_es)//"que_es" segun lo que sea se pone de una form
 		if(datos.DISPONIBLE == "true")
 		{
 			document.getElementById("comprobacion").style.color="green";
-			document.getElementById("comprobacion").innerHTML="&#x02713;";
+			document.getElementById("comprobacion").innerHTML=" &#x02713;";
+			return true;
 		}
 		else
 		{
 			document.getElementById("comprobacion").style.color="red";
 			document.getElementById("comprobacion").innerHTML=" &#9932;";
+			return false;
 		}
 	}
 	else
@@ -318,7 +320,63 @@ function ordenar_descentemente(metodo)
 	}
 }
 
-function comprobacion_de_usuario(campo)
+function comparaPassword()
 {
-	
+	var pass=document.registro.password.value;
+	var pass2=document.registro.password2.value;
+
+	if(pass != pass2){
+		document.getElementById("comprobacionpass").style.color = "red";
+		document.getElementById("comprobacionpass").innerHTML = " &#9932;";
+		return false;
+
+	}
+	else
+	{
+		document.getElementById("comprobacionpass").style.color = "green";
+		document.getElementById("comprobacionpass").innerHTML = " &#x02713;";
+		return true;
+	}
+}
+
+function comprobacionpass2()
+{
+	if(document.getElementById("password2").value.length < 3)
+	{
+		document.getElementById("comprobacionpass2").style.color = "red";
+		document.getElementById("comprobacionpass2").innerHTML = " &#9932;";
+	}
+	else
+	{
+		document.getElementById("comprobacionpass2").style.color = "green";
+		document.getElementById("comprobacionpass2").innerHTML = " &#x02713;";
+	}		
+}
+
+function nomok()
+{
+	if(document.getElementById("nombre_user").value.length < 3)
+	{
+		document.getElementById("nomok").style.color = "red";
+		document.getElementById("nomok").innerHTML = " &#9932;";
+	}
+	else
+	{
+		document.getElementById("nomok").style.color = "green";
+		document.getElementById("nomok").innerHTML = " &#x02713;";
+	}		
+}
+
+function emailok()
+{
+	if(document.getElementById("email").value.length < 3)
+	{
+		document.getElementById("emailok").style.color = "red";
+		document.getElementById("emailok").innerHTML = " &#9932;";
+	}
+	else
+	{
+		document.getElementById("emailok").style.color = "green";
+		document.getElementById("emailok").innerHTML = " &#x02713;";
+	}
 }
