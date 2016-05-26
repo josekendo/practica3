@@ -75,6 +75,7 @@ function registro() //cuando le das a login aparecera esta pantalla
 		+"<br><label  for='password2'>Repite la contraseña:</label><br/><input type='password' name='password2' id='password2' class='input' onkeyup='comparaPassword()' pattern='[_a-zA-Z0-9-]{1,20}' required /><span id='comprobacionpass'></span>"
 		+"<br><label for='nombre_user'>Nombre completo:</label><br/><input type='text' onkeyup='nomok();' name='nombre_user' id='nombre_user'  class='input' required/><span id='nomok'></span>"
 		+"<br><label for='email'>Email:</label><br/><input type='email' onkeyup='emailok();' name='email' id='email'  class='input' required /><span id='emailok'></span>"
+		+"<br><label for='email'>Foto(Opcional):</label><br/><input type='file' onkeyup='fotook();' name='foto' id='foto' class='input'/><span id='fotook'></span>"
 		+"</br><input type='submit'  id='env' value='Registro'/></form><div id='errores' style='width:100%;'></div>"
 		+"<a href='#' onclick='cerrar()'>Cerrar</a>";
 		ventana.classList.add('zoom_visible');
@@ -138,6 +139,24 @@ function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" 
 				return false;
 			}
 			parametros_extras=use;
+		}
+		else if(a_donde == "registrarse")
+		{
+			url = "rest/usuario/";
+			obj_ajax.onreadystatechange = registrocomp;
+			datos = new FormData();//formdata agrupa los datos segun clave/valor y los interpreta en el php como las variables de siempre [clave]
+			usu = document.getElementById("userregis").value;
+			pwd = document.getElementById("password").value;
+			pw2 = document.getElementById("password2").value;
+			nombre = document.getElementById("nombre_user").value;
+			email = document.getElementById("email").value;
+			foto =  document.querySelector('input[type=file]').files[0];
+			datos.append("login",usu);//asi agregamos el valor y el nombre de la variable
+			datos.append("pwd",pwd);
+			datos.append("pwd2",pw2);
+			datos.append("nombre",nombre);
+			datos.append("email",email);
+			datos.append("foto",foto);	
 		}
 		else if(a_donde == "")
 		{
@@ -220,6 +239,29 @@ function comprobaciondeusuario()
 			//zoom_activo();//activamos el slider sin opcion que significa que ha ido mal
 		}
 	}
+}
+
+function registrocomp()
+{
+	if(obj_ajax.readyState == 4)
+	{ 
+		// valor 4: respuesta recibida y lista para ser procesada
+		if(obj_ajax.status == 200)
+		{ 
+			// El valor 200 significa que ha ido todo bien en la carga
+			// Aquí se procesa lo que se haya devuelto:
+			console.log("se ha terminado la carga de datos registro-comprobacionusuario -> devolviendo");//devolvemos mensaje por log
+			console.log("informacion devuelta:"+obj_ajax.responseText);//devolvemos por consola sus valores devueltos
+			resultado=JSON.parse(obj_ajax.responseText);
+			result = foormatear(resultado,"comprobacion_de_usuario");
+			return result;
+		}
+		else 
+		{
+			console.warn("no se ha podido completar la peticion ajax-html de index-clasificacion");//devolvemos mensaje por log
+			//zoom_activo();//activamos el slider sin opcion que significa que ha ido mal
+		}
+	}	
 }
 
 function foormatear(datos,que_es)//"que_es" segun lo que sea se pone de una forma o otra
