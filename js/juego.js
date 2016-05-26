@@ -4,13 +4,30 @@ var cw=0;
 var ch=0;
 var botonpulsado=false;
 var tablero_posiciones= new Array();
-
+var submarinos = [];
+var buques= [];
+var lanchas = [];
+var portaaviones = [];
 var dragItems = document.querySelectorAll('[draggable=true]');
+//lleno las posiciones de los barcos
+var posicion = [];
+posicion["x"]=-100;
+posicion["y"]=-100;
+for (i = 0; i <4; i++){
+	submarinos[i] = posicion;
+}
+for (i = 0; i <3; i++){
+	lanchas[i] = posicion;
+}
+for (i = 0; i <2; i++){
+	buques[i] = posicion;
+}
+	submarinos[i] = posicion;
+
 //codigo de adaptacion a firefox (firefox solo permite algunos objetos draggables)
 for (var i = 0; i < dragItems.length; i++) {
   addEvent(dragItems[i], 'dragstart', function (event) {
     // store the ID of the element, and collect it on the drop later on
-    alert("draggeado wey");
     event.dataTransfer.setData('Text', this.id);
   });
 }
@@ -27,7 +44,7 @@ function arranquep()
 	ch = ((cv.height / 11).toFixed(1));//altura del lienzo dividido entre 11 casillas
 	//alert(cw+" ---- "+ch+"\n"+cv.clientWidth+" ----------- "+cv.clientHeight)
 	hacertablero();
-	crear_barcos();
+	crear_barcos_disponibles();
 	//con esta detectamos que el boton a sido pulsado
 	cv.onmousedown = function(e){
 			coordenadas = getPosition(e);
@@ -118,9 +135,27 @@ function hacertablero()
 
 }
 //crear la parte de barcos 
- function crear_barcos()
+ function crear_barcos_disponibles()
  {
- 	var c=document.getElementById("barco1");
+ 	var c=document.getElementById("sub1");
+	var cbx=c.getContext("2d");
+
+ 	cbx.fillStyle = "#00BFFF";
+ 	cbx.fillRect(0,0,20,20);
+
+ 	var c=document.getElementById("sub2");
+	var cbx=c.getContext("2d");
+
+ 	cbx.fillStyle = "#00BFFF";
+ 	cbx.fillRect(0,0,20,20);
+
+  	var c=document.getElementById("sub3");
+	var cbx=c.getContext("2d");
+
+ 	cbx.fillStyle = "#00BFFF";
+ 	cbx.fillRect(0,0,20,20);
+
+  	var c=document.getElementById("sub4");
 	var cbx=c.getContext("2d");
 
  	cbx.fillStyle = "#00BFFF";
@@ -252,6 +287,31 @@ function cuadrar(h)
 	return t;
 }
 //drag & drop stuff
-function drag(ev) {
+
+//drag
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev, tipo) {
     ev.dataTransfer.setData("text", ev.target.id);
+    //depende de que tipo sean editare o uno u otro barco
+    //0 Submarino, 1 lancha, 2 buque, 3 portaaviones
+    if(tipo = 0){
+    }
+    if(tipo = 1){
+    }
+    if(tipo = 2){
+    }
+    if(tipo = 3){
+    }
+}
+function drop(ev) {
+
+    ev.preventDefault();
+	coordenadas = getPosition(ev);
+    var data = ev.dataTransfer.getData("text");
+    ctx.fillStyle = "#00BFFF";
+
+    ctx.fillRect(coordenadas["x"],coordenadas["y"],20,20);
 }
