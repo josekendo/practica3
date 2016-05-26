@@ -119,6 +119,7 @@ else
         // HAY FOTO
         // ===================
         $ext = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION); // extensión del fichero
+		$uploaddir_fotos_usu = "../../fotos/usu/";
         $uploadfile = $uploaddir_fotos_usu . $login . '.' . $ext; // path fichero destino
         if(move_uploaded_file($_FILES['foto']['tmp_name'], $uploadfile)) // se sube el fichero
         {

@@ -67,17 +67,17 @@ function registro() //cuando le das a login aparecera esta pantalla
 	{
 		subir();
 		mensaje.innerHTML = 
-		"<h2 style='color:green;'>"
+		"<div style='position: absolute;top: 50%; left: 50%;transform: translate(-50%, -50%);'><h2 style='color:green;'>"
 		+"Registro</h2>"
 		+"<form name='registro' onsubmit='return llamada_ajax_generico(&#34;POST&#34;,&#34;registrarse&#34;);' method='POST' enctype='multipart/form-data'>"
-		+"<label for='userregis'>Usuario:</label><br/><input type='text' onkeyup='llamada_ajax_generico(&#34;GET&#34;,&#34;comprobacion_de_usuario&#34;)' name='userregis' id='userregis'  class='input' pattern='[a-zA-Z]{1}[a-zA-Z0-9]{0,19}' required autofocus/><span id='comprobacion'></span>"
-		+"<br/><label  for='password'>Contraseña:</label><br/><input type='password' name='password' id='password' class='input' pattern='[_a-zA-Z0-9-]{1,20}' onkeyup='comprobacionpass2();' required /><span id='comprobacionpass2'></span>"
-		+"<br><label  for='password2'>Repite la contraseña:</label><br/><input type='password' name='password2' id='password2' class='input' onkeyup='comparaPassword()' pattern='[_a-zA-Z0-9-]{1,20}' required /><span id='comprobacionpass'></span>"
-		+"<br><label for='nombre_user'>Nombre completo:</label><br/><input type='text' onkeyup='nomok();' name='nombre_user' id='nombre_user'  class='input' required/><span id='nomok'></span>"
-		+"<br><label for='email'>Email:</label><br/><input type='email' onkeyup='emailok();' name='email' id='email'  class='input' required /><span id='emailok'></span>"
-		+"<br><label for='email'>Foto(Opcional):</label><br/><input type='file' onkeyup='fotook();' name='foto' id='foto' class='input'/><span id='fotook'></span>"
-		+"</br><input type='submit'  id='env' value='Registro'/></form><div id='errores' style='width:100%;'></div>"
-		+"<a href='#' onclick='cerrar()'>Cerrar</a>";
+		+"<label for='userregis'>Usuario:</label><br/><input type='text' onkeyup='llamada_ajax_generico(&#34;GET&#34;,&#34;comprobacion_de_usuario&#34;)' name='userregis' id='userregis'  class='input' pattern='[a-zA-Z]{1}[a-zA-Z0-9]{0,19}' required autofocus/><span id='comprobacion'>&#9932;</span>"
+		+"<br/><label  for='password'>Contraseña:</label><br/><input type='password' name='password' id='password' class='input' pattern='[_a-zA-Z0-9-]{1,20}' onkeyup='comprobacionpass2();' required /><span id='comprobacionpass2'>&#9932;</span>"
+		+"<br><label  for='password2'>Repite la contraseña:</label><br/><input type='password' name='password2' id='password2' class='input' onkeyup='comparaPassword()' pattern='[_a-zA-Z0-9-]{1,20}' required /><span id='comprobacionpass'>&#9932;</span>"
+		+"<br><label for='nombre_user'>Nombre completo:</label><br/><input type='text' onkeyup='nomok();' name='nombre_user' id='nombre_user'  class='input' required/><span id='nomok'>&#9932;</span>"
+		+"<br><label for='email'>Email:</label><br/><input type='email' onchange='emailok();' name='email' id='email'  class='input' required /><span id='emailok'>&#9932;</span>"
+		+"<br><label for='email'>Foto(Opcional):</label><br/><input type='file' onclick='fotook(this);' onkeydown='fotook(this);' onchange='fotook(this);' onmousedown='fotook(this);' onselect='fotook(this);' name='foto' id='foto' class='input'/><span id='fotook'>&#9932;</span>"
+		+"</br><input type='submit'  id='env' value='Registro'/></form><div id='errores' style='width:100%;'></div><span id='errorregistro' style='width:100%;text-align:center;'></span>"
+		+"<a href='#' onclick='cerrar()'>Cerrar</a></div>";
 		ventana.classList.add('zoom_visible');
 		document.body.classList.add('bloqueo');
 	}
@@ -91,13 +91,13 @@ function logearse()//cuando le das a login aparecera esta pantalla
 	{
 		subir();
 		mensaje.innerHTML = 
-			"<h2 style='color:green;'>"
+			"<div style='position: absolute;top: 50%; left: 50%;transform: translate(-50%, -50%);'><h2 style='color:green;'>"
 			+"Login</h2>"
 			+"<form onsubmit='return llamada_ajax_generico(&#34;POST&#34;,&#34;logearse&#34;);'>"
 			+"<label  for='login'>Usuario:</label><br/><input type='text' name='userlogin' id='userlogin' pattern='[a-zA-Z0-9]+' required /></br>"
 			+"<label  for='password'>Contraseña:</label><br/><input type='password' name='password' id='password' pattern='[a-zA-Z0-9]+' required />"
 			+"</br></br><input type='submit' id='env' value='Login'/></form><div id='errores' style='width:100%;text-align:center;color:red;margin-top:1em;'></div>"
-			+"<br/><a href='#' onclick='cerrar()'>Cerrar</a>";
+			+"<br/><a href='#' onclick='cerrar()'>Cerrar</a></div>";
 		ventana.classList.add('zoom_visible');
 		document.body.classList.add('bloqueo');
 	}
@@ -156,7 +156,10 @@ function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" 
 			datos.append("pwd2",pw2);
 			datos.append("nombre",nombre);
 			datos.append("email",email);
-			datos.append("foto",foto);	
+			if(foto != undefined)
+			{
+				datos.append("foto",foto);
+			}			
 		}
 		else if(a_donde == "")
 		{
@@ -253,8 +256,7 @@ function registrocomp()
 			console.log("se ha terminado la carga de datos registro-comprobacionusuario -> devolviendo");//devolvemos mensaje por log
 			console.log("informacion devuelta:"+obj_ajax.responseText);//devolvemos por consola sus valores devueltos
 			resultado=JSON.parse(obj_ajax.responseText);
-			result = foormatear(resultado,"comprobacion_de_usuario");
-			return result;
+			result = foormatear(resultado,"registro");
 		}
 		else 
 		{
@@ -315,6 +317,21 @@ function foormatear(datos,que_es)//"que_es" segun lo que sea se pone de una form
 			document.getElementById("comprobacion").style.color="red";
 			document.getElementById("comprobacion").innerHTML=" &#9932;";
 			return false;
+		}
+	}
+	else if(que_es == "registro")
+	{
+		mensaje = document.getElementById('mensaje');
+		errorregistro = document.getElementById('errorregistro');
+		if(datos.RESULTADO == "ok")
+		{
+			mensaje.innerHTML="";
+			mensaje.innerHTML="<div style='position: absolute;top: 50%; left: 50%;transform: translate(-50%, -50%);text-align:center;'><span>Su registro se ha realizado correctamente, presione el siguiente </span><a href='javascript:cerrar()' style='padding-right:0;padding-left:0;'>enlace</a><span> para </span><a href='javascript:cerrar()' style='padding-right:0;padding-left:0;'>Cerrar</a><span> la ventana</span><br/><span>Luego presioner Login para logearse con el nuevo usuario.</span>.</div>"
+		}
+		else
+		{
+			errorregistro.style.color = "red";
+			errorregistro.innerHTML = " Ha ocurrido un error revise los datos.<br/>(todo menos la imagen debe tener la verificacion de que esta correcto -> &#x02713;)";
 		}
 	}
 	else
@@ -383,7 +400,7 @@ function comparaPassword()
 
 function comprobacionpass2()
 {
-	if(document.getElementById("password2").value.length < 3)
+	if(document.getElementById("password").value.length < 3)
 	{
 		document.getElementById("comprobacionpass2").style.color = "red";
 		document.getElementById("comprobacionpass2").innerHTML = " &#9932;";
@@ -420,5 +437,19 @@ function emailok()
 	{
 		document.getElementById("emailok").style.color = "green";
 		document.getElementById("emailok").innerHTML = " &#x02713;";
+	}
+}
+
+function fotook(fot)
+{
+	if(fot.files[0] == undefined)
+	{
+		document.getElementById("fotook").style.color = "red";
+		document.getElementById("fotook").innerHTML = " &#9932;";
+	}
+	else
+	{
+		document.getElementById("fotook").style.color = "green";
+		document.getElementById("fotook").innerHTML = " &#x02713;";
 	}
 }
