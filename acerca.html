@@ -7,11 +7,11 @@
 	<link rel="stylesheet" type="text/css" href="css/fontello.css"/>
 	<link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
 	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'/>
-	<script type="text/javascript" src="/practica2/js/acerca.js"></script>
-	<script type="text/javascript" src="/practica2/js/funciones_genericas.js"></script>
+	<script type="text/javascript" src="./js/acerca.js"></script>
+	<script type="text/javascript" src="./js/funciones_genericas.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
-<body onload="arranque();">
+<body onload="arranque('acerca');">
 		<input type="checkbox" class="checkbox" id="menu-toogle"/>
 	<label for="menu-toogle"><span></span></label>
 	<div id="banner">
@@ -24,10 +24,11 @@
 		<ul id="menu_lista">
 			<li><a href="index.html">Inicio</a></li>
 			<li><a href="javascript:registro()"><span class="icon-search"></span>Registrate</a></li>
-			<li><a href="javascript:login()"><span class="icon-search"></span>Login</a></li>
-			<li><a href="juego.html"><span class="icon-search"></span>Jugar</a></li>
+			<li><a href="javascript:logearse()"><span class="icon-search"></span>Login</a></li>
+			<li><a href="jugar.html">Jugar</a></li>
 			<li><a href="acerca.html"><span class="icon-user"></span>Nosotros</a></li>
-			<li><a href="#" onclick="cerrar();">Cerrar Sesion</a></li>
+			<li><a href="javascript:cerrar()">Cerrar Sesion</a></li>
+			<!--<li><a href="#" onclick="cerrar();">Cerrar Sesion</a></li>-->
 		</ul>
 	</nav>
 	<main class="acerca">

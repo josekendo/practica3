@@ -17,21 +17,45 @@ function hla ()
 {
 	alert("HOLASO");
 }
-function arranque()
+function arranque(pagina)
 {
 	comp=comprobar_storage();
 	if(comp)
 	{
-		//comprobamos si esta logueado o no
-		if(sessionStorage.getItem("login_session"))
+		if(pagina != "acerca" && pagina != "jugar")
 		{
-			//si esta logueado
-			borrar_lista("Registrate,Login");
+			//comprobamos si esta logueado o no
+			if(sessionStorage.getItem("login_session"))
+			{
+				//si esta logueado
+				borrar_lista("Registrate,Login");
+			}
+			else
+			{
+				//no esta logueado
+				borrar_lista("Cerrar Sesion,Jugar");
+			}
 		}
 		else
 		{
-			//no esta logueado
-			borrar_lista("Cerrar Sesion,Jugar");
+			//comprobamos si esta logueado o no
+			if(sessionStorage.getItem("login_session"))
+			{
+				//si esta logueado
+				borrar_lista("Registrate,Login");
+			}
+			else
+			{
+				//no esta logueado
+				if(pagina == "jugar")
+				{
+					redireccion();
+				}
+				else
+				{
+					borrar_lista("Cerrar Sesion,Jugar,Registrate,Login");	
+				}
+			}
 		}
 		
 	}
