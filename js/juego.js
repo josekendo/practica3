@@ -9,20 +9,35 @@ var buques= [];
 var lanchas = [];
 var portaaviones = [];
 var dragItems = document.querySelectorAll('[draggable=true]');
+var girado = 0;
 //lleno las posiciones de los barcos
-var posicion = [];
-posicion["x"]=-100;
-posicion["y"]=-100;
-for (i = 0; i <4; i++){
-	submarinos[i] = posicion;
+
+for (var i = 0; i <4; i++){
+	submarinos[i] = [];
+	submarinos[i]["x"] = 0;
+	submarinos[i]["y"] = 0;
+
 }
-for (i = 0; i <3; i++){
-	lanchas[i] = posicion;
+for (var i = 0; i <3; i++){
+	lanchas[i] = [];
+	lanchas[i]["x"] = 0;
+	lanchas[i]["y"] = 0;
+	lanchas[i]["girado"] = 0;
+
 }
-for (i = 0; i <2; i++){
-	buques[i] = posicion;
+for (var i = 0; i <2; i++){
+	buques[i] = [];
+	buques[i]["x"] = 0;
+	buques[i]["y"] = 0;
+	buques[i]["girado"] = 0;
+
 }
-	submarinos[i] = posicion;
+
+	portaaviones = [];
+	portaaviones["x"] = 0;
+	portaaviones["y"] = 0;
+	portaaviones["girado"] = 0;
+
 
 //codigo de adaptacion a firefox (firefox solo permite algunos objetos draggables)
 for (var i = 0; i < dragItems.length; i++) {
@@ -91,10 +106,12 @@ function arranquep()
 			//atacar();
 		}
 	}
+
 }
 //creamos el tablero
 function hacertablero()
 {
+	ctx.strokeStyle="#000000";
 	ctx.moveTo(0,0);//x e y ((1+a)*cw)
 	ctx.lineTo(0,cv.width);
 	ctx.stroke();
@@ -132,11 +149,16 @@ function hacertablero()
 	ctx.fillText("8",168,12);
 	ctx.fillText("9",188,12);
 	ctx.fillText("10",204,12);
+	
+
+	dibujar_barcos_ingame();
 
 }
 //crear la parte de barcos 
  function crear_barcos_disponibles()
  {
+ 	var x = 1;
+ 	var y = 1;
  	var c=document.getElementById("sub1");
 	var cbx=c.getContext("2d");
 
@@ -160,6 +182,30 @@ function hacertablero()
 
  	cbx.fillStyle = "#00BFFF";
  	cbx.fillRect(0,0,20,20);
+
+
+ 	var c=document.getElementById("lan1");
+	var cbx=c.getContext("2d");
+	if(girado == 0){
+		x = 2;
+	}
+	else{
+		y = 2;
+	}
+ 	cbx.fillStyle = "#FFBF00";
+ 	cbx.fillRect(0,0,20*y,20*x);
+
+ 	var c=document.getElementById("lan2");
+	var cbx=c.getContext("2d");
+
+ 	cbx.fillStyle = "#FFBF00";
+ 	cbx.fillRect(0,0,20*y,20*x);
+
+  	var c=document.getElementById("lan3");
+	var cbx=c.getContext("2d");
+
+ 	cbx.fillStyle = "#FFBF00";
+ 	cbx.fillRect(0,0,20*y,20*x);
 // 	cbx.fillText("Barcos Disponibles",6,10);
 // 	cbx.fillText("Portaaviones",20,30);
 // 	cbx.fillText("Acorazados",20,80);
@@ -231,12 +277,16 @@ function colorearcuadro(coorx, coory)
 	if(coorx > 19 && coory > 19)
 	{
 			cv.width=cv.width;
+
 			hacertablero();//y creamos el tablero
+
+
 			ctx.fillStyle = "#FF0000";
 			//debemos cuadrar las coordenadas
 			cuardrados=cuadrar(coorx,coory);
 			ctx.fillRect(cuadrar(coorx),cuadrar(coory),cw,ch);
 			ctx.clearRect(cuadrar(coorx),cuadrar(coory),cw-1,ch-1);
+
 	}
 }
 
@@ -287,7 +337,15 @@ function cuadrar(h)
 	return t;
 }
 //drag & drop stuff
-
+function girar(){
+	if(girado == 0){
+		girado = 1;
+	}
+	else{
+		girado = 0;
+	}
+	crear_barcos_disponibles();
+}
 //drag
 function allowDrop(ev) {
     ev.preventDefault();
@@ -295,23 +353,97 @@ function allowDrop(ev) {
 
 function drag(ev, tipo) {
     ev.dataTransfer.setData("text", ev.target.id);
-    //depende de que tipo sean editare o uno u otro barco
-    //0 Submarino, 1 lancha, 2 buque, 3 portaaviones
-    if(tipo = 0){
-    }
-    if(tipo = 1){
-    }
-    if(tipo = 2){
-    }
-    if(tipo = 3){
-    }
 }
 function drop(ev) {
 
     ev.preventDefault();
 	coordenadas = getPosition(ev);
     var data = ev.dataTransfer.getData("text");
-    ctx.fillStyle = "#00BFFF";
+    // ctx.fillStyle = "#00BFFF";
 
-    ctx.fillRect(coordenadas["x"],coordenadas["y"],20,20);
+    // ctx.fillRect(coordenadas["x"],coordenadas["y"],20,20);
+    var id = ev.dataTransfer.getData("Text");
+    if(data == "sub1"){
+		submarinos[0]["x"]=cuadrar(coordenadas["x"]);
+		submarinos[0]["y"]=cuadrar(coordenadas["y"]);
+		hacertablero();		
+		dibujar_barcos_ingame();
+    }
+        if(data == "sub2"){
+		submarinos[1]["x"]=cuadrar(coordenadas["x"]);
+		submarinos[1]["y"]=cuadrar(coordenadas["y"]);
+		hacertablero();		
+		dibujar_barcos_ingame();
+
+    }
+        if(data == "sub3"){
+		submarinos[2]["x"]=cuadrar(coordenadas["x"]);
+		submarinos[2]["y"]=cuadrar(coordenadas["y"]);
+		hacertablero();		
+		dibujar_barcos_ingame();
+
+    }
+        if(data == "sub4"){
+		submarinos[3]["x"]=cuadrar(coordenadas["x"]);
+		submarinos[3]["y"]=cuadrar(coordenadas["y"]);
+		hacertablero();		
+		dibujar_barcos_ingame();
+
+    }
+        if(data == "lan1"){
+		lanchas[0]["x"]=cuadrar(coordenadas["x"]);
+		lanchas[0]["y"]=cuadrar(coordenadas["y"]);
+		lanchas[0]["girado"] = girado;
+		hacertablero();		
+		dibujar_barcos_ingame();
+
+    }
+        if(data == "lan2"){
+		lanchas[1]["x"]=cuadrar(coordenadas["x"]);
+		lanchas[1]["y"]=cuadrar(coordenadas["y"]);
+		lanchas[1]["girado"] = girado;
+		hacertablero();		
+		dibujar_barcos_ingame();
+
+    }
+        if(data == "lan3"){
+		lanchas[2]["x"]=cuadrar(coordenadas["x"]);
+		lanchas[2]["y"]=cuadrar(coordenadas["y"]);
+		lanchas[2]["girado"] = girado;
+		hacertablero();		
+		dibujar_barcos_ingame();
+
+    }
+
+}
+function dibujar_barcos_ingame(){
+	for (var i = 0; i < submarinos.length; i++) {
+		if(submarinos[i]["x"] != 0 ){
+			    ctx.fillStyle = "#00BFFF";
+    			ctx.fillRect(submarinos[i]["x"], submarinos[i]["y"],20,20);
+    		}
+	}
+	for (var i = 0; i < lanchas.length; i++) {
+		if(lanchas[i]["x"] != 0 ){
+			    ctx.fillStyle = "#FFBF00";
+			    	if(lanchas[i]["girado"]==1){
+				 	   	if((lanchas[i]["x"]+40)<200){
+	    				ctx.fillRect(lanchas[i]["x"], lanchas[i]["y"],40,20);
+	    				}	
+	    				else{
+	    				ctx.fillRect(lanchas[i]["x"]-20, lanchas[i]["y"],40,20);
+	    				}
+
+	    			}
+	    			else{
+				 	   	if((lanchas[i]["y"]+40)<200){
+	    				ctx.fillRect(lanchas[i]["x"], lanchas[i]["y"],20,40);
+	    				}	
+	    				else{
+	    				ctx.fillRect(lanchas[i]["x"], lanchas[i]["y"]-20,20,40);
+	    				}
+	    			}
+    		}
+
+	}
 }
