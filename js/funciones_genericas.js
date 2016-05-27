@@ -98,6 +98,11 @@ function cerrar()
 	redireccion();
 }
 
+function cerrar_juego()
+{
+	document.location.href="juego.html";
+}
+
 function redireccion() 
 { 
 	document.location.href="index.html";

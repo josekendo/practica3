@@ -256,6 +256,10 @@ function registrocomp()
 			console.log("se ha terminado la carga de datos registro-comprobacionusuario -> devolviendo");//devolvemos mensaje por log
 			console.log("informacion devuelta:"+obj_ajax.responseText);//devolvemos por consola sus valores devueltos
 			resultado=JSON.parse(obj_ajax.responseText);
+			if(datos.RESULTADO == "ok")
+			{
+				
+			}
 			result = foormatear(resultado,"registro");
 		}
 		else 
@@ -325,8 +329,10 @@ function foormatear(datos,que_es)//"que_es" segun lo que sea se pone de una form
 		errorregistro = document.getElementById('errorregistro');
 		if(datos.RESULTADO == "ok")
 		{
+			datos_alfa = JSON.stringify(datos);
+			sessionStorage.setItem("login_session",datos_alfa);//creamos los datos
 			mensaje.innerHTML="";
-			mensaje.innerHTML="<div style='position: absolute;top: 50%; left: 50%;transform: translate(-50%, -50%);text-align:center;'><span>Su registro se ha realizado correctamente, presione el siguiente </span><a href='javascript:cerrar()' style='padding-right:0;padding-left:0;'>enlace</a><span> para </span><a href='javascript:cerrar()' style='padding-right:0;padding-left:0;'>Cerrar</a><span> la ventana</span><br/><span>Luego presioner Login para logearse con el nuevo usuario.</span>.</div>"
+			mensaje.innerHTML="<div style='position: absolute;top: 50%; left: 50%;transform: translate(-50%, -50%);text-align:center;'><span>Su registro se ha realizado correctamente, presione el siguiente </span><a href='javascript:cerrar_juego()' style='padding-right:0;padding-left:0;'>enlace</a><span> para </span><a href='javascript:cerrar_juego()' style='padding-right:0;padding-left:0;'>Cerrar</a><span> la ventana</span><br/><span>Sera redireccionado despues de presionar el enlace al juego.</span>.</div>"
 		}
 		else
 		{
