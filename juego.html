@@ -38,29 +38,36 @@
 				<h1>Hundir la tropa:</h1>
 			</header>
 			<div>
-				<p>Coordenadas: X = <span id="coordenadax"></span> Y = <span id="coordenaday"></span></p>
-				<canvas id="game" style="text-align:center;" width="220" height="220" ondrop="drop(event)" ondragover="allowDrop(event)">Tu navegador no soporta HTML5 Canvas :(</canvas>
-
-				<div id="barcos style="text-align:center;" width="220" height="220""> 
-				<canvas id="sub1" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-				<canvas id="sub2" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-				<canvas id="sub3" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-				<canvas id="sub4" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-				<canvas id="lan1" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-				<canvas id="lan2" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-				<canvas id="lan3" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-				<canvas id="buq1" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-				<canvas id="buq2" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-				<canvas id="port" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-
-				</div>
-				<!-- <br/> -->
-				<button type="button" style="text-align:center;"disabled onclick="girar()">Jugar</button>
-				<button type="button" style="text-align:center;" onclick="girar()">Rotar Barcos 90º</button>
+				<div style="width:99%;">
+					<p>Coordenadas: X = <span id="coordenadax"></span> Y = <span id="coordenaday"></span></p>
+						<div style="float:left;min-width:49%;text-align:center;">
+							<canvas id="game" style="text-align:center;" width="220" height="220" ondrop="drop(event)" ondragover="allowDrop(event)">Tu navegador no soporta HTML5 Canvas :(</canvas>
+						</div>
+						<div style="text-align:center;float:right;max-width:49%;width:49%;">
+							<div id="barcos" width="220" height="220"> 
+								<canvas id="sub1" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="sub2" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="sub3" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="sub4" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="lan1" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="lan2" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="lan3" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="buq1" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="buq2" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="port" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+							</div>
+						</div>
+					</div>
+					<div style="width:99%;overflow:hidden;text-align:center;">
+						<span id="respuestas" style="width:100%;"></span><br/>
+						<!-- <br/> -->
+						<button type="button" style="text-align:center;"disabled onclick="girar()">Jugar</button>
+						<button type="button" style="text-align:center;" onclick="girar()">Rotar Barcos 90º</button>
+					</div>
 			</div>
 			<footer>
 				<h6>De nada por el juegaso</h6>
-				<h7>po fabo no solape los barquitos</h7>
+				<h6>po fabo no solape los barquitos</h6>
 			</footer>
 	</main>
 	<footer class="footer">
