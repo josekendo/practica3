@@ -12,13 +12,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
 <body onload="arranque('acerca');">
-		<input type="checkbox" class="checkbox" id="menu-toogle"/>
+	<input type="checkbox" class="checkbox" id="menu-toogle"/>
 	<label for="menu-toogle"><span></span></label>
-	<div id="banner">
+	<header id="banner">
 		<img src="img/logotipo.png" height="100" width="100" alt="Logotipo de la pagina">
 		<h1>jTravel</h1>
-		<h3>The Experience</h3>
-	</div>
+		<h2>The Experience</h2>
+	</header>
 	<nav id="menu">
 		<h3>Menu Despegable</h3>
 		<ul id="menu_lista">
@@ -32,27 +32,49 @@
 		</ul>
 	</nav>
 	<main class="acerca">
-			<header>
-				<h1>Acerca de Nosotros</h1>
-			</header>
-			<img src="img/prueba.jpg" alt="imagen de presentacion"/>
-			<br/>
-				<h3>Integrantes de la practica:</h3>
-				 	<h4>Jose Vicente Anton Coy</h4>
-				 	<h4>Jose Manuel Palau Alegria</h4>
-				<span>Somos de la carrera de Ingenieria Multimedia, y esta es la practica nº1 de Programacion Hipermedia II, solo se puede realizar con CSS y HTML.</span> 
-				<br/>
-				<br/>
-				<h3>Dificultades:</h3>
-				<ul>
-					<li>Menu Hamburguesa: Nos a costado bastante diseñar el menu hamburguesa nativo en css</li>
-					<li>Nos hicimos un poco un lío en la práctica 2 en general</li>
-					<li>En esta práctica 3 hemos roto moldes :D (escrito el 6 de mayo), cuando hemos hecho poca cosa</li>
-
-				</ul>		
-			<footer>
-				<h6>Gracias por su tiempo</h6>
-			</footer>
+			<article>
+				<header>
+					<h2>Acerca de Nosotros</h2>
+				</header>
+				<section id="presentacion">
+					<img src="./img/prueba.jpg" alt="imagen de presentacion" style="padding-left: 25%;padding-right: 25%;max-height: 80%;max-width: 70%;min-width: 60%;"/>
+					<h3 style="width:100%;">Integrantes de la practica:</h3>
+						<ol>
+							<li>Jose Vicente Anton Coy</li>
+							<li>Jose Manuel Palau Alegria</li>
+						</ol>
+					<p>Somos de la carrera de Ingenieria Multimedia, y esta es la practica nº1 de Programacion Hipermedia II, solo se puede realizar con CSS y HTML.</p> 
+				</section>
+				<section id="herramientas">
+					<br/>
+					<h3 style="width:100%;">Herramientas utilizadas:</h3>
+					<p>Las herramientas que hemos utilizado han sido principalmente para la edicion de html y js <span style="color:green;">notepad</span> y <span style="color:orange;">sublime text</span>.</p>
+				</section>
+				<section id="dificultades">
+					<br/>
+					<h3 style="width:100%;">Dificultades:</h3>
+					<p style="width:80%;text-align:left;">Hemos tenido una serie de dificultades que le nombramos en esta seccion:</p>
+					<ul style="width:80%;text-align:left;">
+						<li>Menu Hamburguesa: Nos a costado bastante diseñar el menu hamburguesa nativo en css(practica 1)</li>
+						<li>Nos hicimos un poco un lío en la práctica 2 en general</li>
+						<li>En esta práctica 3 la mayor dificultad a sido drag and drop.</li>
+					</ul>
+				</section>
+				<section id="aprendido">
+					<br/>
+					<h3 style="width:100%;">Hemos aprendido</h3>
+					<p style="width:80%;text-align:left;">Hemos aprendido en esta practica:</p>
+					<ul style="width:80%;text-align:left;">
+						<li>Utilizar drag & drop.</li>
+						<li>Utilizar canvas.</li>
+						<li>Utilizar svg.</li>
+						<li>Eventos onmousedown, onmouseout, onmouseup, entre otros.</li>
+					</ul>
+				</section>
+				<footer>
+					<h6>Gracias por su tiempo</h6>
+				</footer>
+			</article>		
 	</main>
 	<footer class="footer">
 		<p>
