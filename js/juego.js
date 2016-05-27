@@ -161,6 +161,7 @@ function hacertablero()
  	var y = 1;
  	var c=document.getElementById("sub1");
 	var cbx=c.getContext("2d");
+	
 
  	cbx.fillStyle = "#00BFFF";
  	cbx.fillRect(0,0,20,20);
@@ -182,59 +183,72 @@ function hacertablero()
 
  	cbx.fillStyle = "#00BFFF";
  	cbx.fillRect(0,0,20,20);
-
-
- 	var c=document.getElementById("lan1");
-	var cbx=c.getContext("2d");
+	
 	if(girado == 0){
 		x = 2;
 	}
 	else{
 		y = 2;
 	}
+
+ 	var c=document.getElementById("lan1");
+	var cbx=c.getContext("2d");
+
+	cbx.clearRect(0,0,90,90);
+
  	cbx.fillStyle = "#FFBF00";
  	cbx.fillRect(0,0,20*y,20*x);
 
  	var c=document.getElementById("lan2");
 	var cbx=c.getContext("2d");
+	cbx.clearRect(0,0,90,90);
 
  	cbx.fillStyle = "#FFBF00";
  	cbx.fillRect(0,0,20*y,20*x);
 
   	var c=document.getElementById("lan3");
 	var cbx=c.getContext("2d");
+	cbx.clearRect(0,0,90,90);
 
  	cbx.fillStyle = "#FFBF00";
  	cbx.fillRect(0,0,20*y,20*x);
-// 	cbx.fillText("Barcos Disponibles",6,10);
-// 	cbx.fillText("Portaaviones",20,30);
-// 	cbx.fillText("Acorazados",20,80);
-// 	cbx.fillText("Buques",20,130);
-// 	cbx.fillText("Submarinos",20,180);
-// 	cbx.fillStyle = "#00BFFF";
-// 	cbx.fillRect(20,40,20,20);
-// 	cbx.fillRect(40,40,20,20);
-// 	cbx.fillRect(60,40,20,20);
-// 	cbx.fillRect(80,40,20,20);
-// 	cbx.fillStyle = "#FE2E2E";
-// 	cbx.fillRect(20,90,20,20);
-// 	cbx.fillRect(40,90,20,20);
-// 	cbx.fillRect(60,90,20,20);
-// 	cbx.fillRect(100,90,20,20);
-// 	cbx.fillRect(120,90,20,20);
-// 	cbx.fillRect(140,90,20,20);
-// 	cbx.fillStyle = "#FFFF00";
-// 	cbx.fillRect(20,140,20,20);
-// 	cbx.fillRect(40,140,20,20);
-// 	cbx.fillRect(80,140,20,20);
-// 	cbx.fillRect(100,140,20,20);
-// 	cbx.fillRect(140,140,20,20);
-// 	cbx.fillRect(160,140,20,20);
-// 	cbx.fillStyle = "#2EFE2E";
-// 	cbx.fillRect(20,190,20,20);
-// 	cbx.fillRect(60,190,20,20);
-// 	cbx.fillRect(100,190,20,20);
-// 	cbx.fillRect(140,190,20,20);
+
+ 	x=1;
+ 	y=1;
+
+ 	if(girado == 0){
+		x = 3;
+	}
+	else{
+		y = 3;
+	}
+ 	var c=document.getElementById("buq1");
+	var cbx=c.getContext("2d");
+	cbx.clearRect(0,0,90,90);
+
+ 	cbx.fillStyle = "#00EF4E";
+ 	cbx.fillRect(0,0,20*y,20*x);
+
+ 	var c=document.getElementById("buq2");
+	var cbx=c.getContext("2d");
+	cbx.clearRect(0,0,90,90);
+
+ 	cbx.fillStyle = "#00EF4E";
+ 	cbx.fillRect(0,0,20*y,20*x);
+
+ 	var c=document.getElementById("port");
+	var cbx=c.getContext("2d");
+	cbx.clearRect(0,0,90,90);
+
+ 	if(girado == 0){
+		x = 4;
+	}
+	else{
+		y = 4;
+	}
+ 	cbx.fillStyle = "#FF0000";
+ 	cbx.fillRect(0,0,20*y,20*x);
+
  }
 //con esta funcion obtenemos la posicion convertida a canvas
 function getPosition(event)
@@ -394,6 +408,17 @@ function drop(ev) {
 		lanchas[0]["x"]=cuadrar(coordenadas["x"]);
 		lanchas[0]["y"]=cuadrar(coordenadas["y"]);
 		lanchas[0]["girado"] = girado;
+		if(girado == 1){
+			//si las lanchas se salen, las centro
+			if((lanchas[0]["x"]+40)>200){
+				lanchas[0]["x"] = lanchas[0]["x"] -20
+			}
+		}
+		else{
+				if((lanchas[0]["y"]+40)>200){
+				lanchas[0]["y"] = lanchas[0]["y"] -20
+			}
+		}
 		hacertablero();		
 		dibujar_barcos_ingame();
 
@@ -402,6 +427,17 @@ function drop(ev) {
 		lanchas[1]["x"]=cuadrar(coordenadas["x"]);
 		lanchas[1]["y"]=cuadrar(coordenadas["y"]);
 		lanchas[1]["girado"] = girado;
+		if(girado == 1){
+			//si las lanchas se salen, las centro
+			if((lanchas[1]["x"]+40)>200){
+				lanchas[1]["x"] = lanchas[0]["x"] -20
+			}
+		}
+		else{
+				if((lanchas[1]["y"]+40)>200){
+				lanchas[1]["y"] = lanchas[1]["y"] -20
+			}
+		}
 		hacertablero();		
 		dibujar_barcos_ingame();
 
@@ -410,10 +446,77 @@ function drop(ev) {
 		lanchas[2]["x"]=cuadrar(coordenadas["x"]);
 		lanchas[2]["y"]=cuadrar(coordenadas["y"]);
 		lanchas[2]["girado"] = girado;
+		if(girado == 1){
+			//si las lanchas se salen, las centro
+			if((lanchas[2]["x"]+40)>200){
+				lanchas[2]["x"] = lanchas[2]["x"] -20
+			}
+		}
+		else{
+				if((lanchas[2]["y"]+40)>200){
+				lanchas[2]["y"] = lanchas[2]["y"] -20
+			}
+		}
+		hacertablero();		
+		dibujar_barcos_ingame();
+    }
+         if(data == "buq1"){
+		buques[0]["x"]=cuadrar(coordenadas["x"]);
+		buques[0]["y"]=cuadrar(coordenadas["y"]);
+		buques[0]["girado"] = girado;
+		if(girado == 1){
+			//si las buques se salen, las centro
+			if((buques[0]["x"]+60)>200){
+				buques[0]["x"] = buques[0]["x"] -40
+			}
+		}
+		else{
+				if((buques[0]["y"]+60)>200){
+				buques[0]["y"] = buques[0]["y"] -40
+			}
+		}
 		hacertablero();		
 		dibujar_barcos_ingame();
 
     }
+        if(data == "buq2"){
+		buques[1]["x"]=cuadrar(coordenadas["x"]);
+		buques[1]["y"]=cuadrar(coordenadas["y"]);
+		buques[1]["girado"] = girado;
+		if(girado == 1){
+			//si las buques se salen, las centro
+			if((buques[1]["x"]+60)>200){
+				buques[1]["x"] = buques[1]["x"] -40
+			}
+		}
+		else{
+				if((buques[1]["y"]+60)>200){
+				buques[1]["y"] = buques[1]["y"] -40
+			}
+		}
+		hacertablero();		
+		dibujar_barcos_ingame();
+
+    }
+        if(data == "port"){
+		portaaviones["x"]=cuadrar(coordenadas["x"]);
+		portaaviones["y"]=cuadrar(coordenadas["y"]);
+		portaaviones["girado"] = girado;
+		if(girado == 1){
+			//si las buques se salen, las centro
+			if((portaaviones["x"]+80)>200){
+				portaaviones["x"] = portaaviones["x"] -60
+			}
+		}
+		else{
+				if((portaaviones["y"]+80)>200){
+				portaaviones["y"] = portaaviones["y"] -60
+			}
+		}		hacertablero();		
+		dibujar_barcos_ingame();
+
+    }
+
 
 }
 function dibujar_barcos_ingame(){
@@ -427,23 +530,36 @@ function dibujar_barcos_ingame(){
 		if(lanchas[i]["x"] != 0 ){
 			    ctx.fillStyle = "#FFBF00";
 			    	if(lanchas[i]["girado"]==1){
-				 	   	if((lanchas[i]["x"]+40)<200){
 	    				ctx.fillRect(lanchas[i]["x"], lanchas[i]["y"],40,20);
-	    				}	
-	    				else{
-	    				ctx.fillRect(lanchas[i]["x"]-20, lanchas[i]["y"],40,20);
-	    				}
+	    			}
+	    			else{
+	    				ctx.fillRect(lanchas[i]["x"], lanchas[i]["y"],20,40);
+	    			}
+    		}
+
+	}
+	for (var i = 0; i < buques.length; i++) {
+		if(buques[i]["x"] != 0 ){
+			    ctx.fillStyle = "#00EF4E";
+			    	if(buques[i]["girado"]==1){
+	    				ctx.fillRect(buques[i]["x"], buques[i]["y"],60,20);
 
 	    			}
 	    			else{
-				 	   	if((lanchas[i]["y"]+40)<200){
-	    				ctx.fillRect(lanchas[i]["x"], lanchas[i]["y"],20,40);
-	    				}	
-	    				else{
-	    				ctx.fillRect(lanchas[i]["x"], lanchas[i]["y"]-20,20,40);
-	    				}
+	    				ctx.fillRect(buques[i]["x"], buques[i]["y"],20,60);
 	    			}
     		}
+
+	}
+	if(portaaviones["x"] != 0){
+		ctx.fillStyle = "#FF0000";
+		if(portaaviones["girado"] == 1){
+			ctx.fillRect(portaaviones["x"], portaaviones["y"],80,20);
+
+	    }
+	    else{
+	    	ctx.fillRect(portaaviones["x"], portaaviones["y"],20,80);
+	    }
 
 	}
 }
