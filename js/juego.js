@@ -64,6 +64,7 @@ function arranquep()
 	cv.onmousedown = function(e){
 			coordenadas = getPosition(e);
 			colorearcuadro(coordenadas["x"],coordenadas["y"]);
+			chocaconalgunbarco = choca(cuadrar(coordenadas["x"]),cuadrar(coordenadas["y"]));//comprobamos si choca devuelve un array con tres posiciones la primera siempre esta llena que es si hay un barco (true) si no lo hay (false), despues el numero de posiciones que ocupa, su coordenada inicial como barco, y si esta rotado en horizontal - es true y si esta en vertical | un false
 	};
 
 	
@@ -498,7 +499,8 @@ function drop(ev) {
 		dibujar_barcos_ingame();
 
     }
-        if(data == "port"){
+        if(data == "port")
+		{
 		portaaviones["x"]=cuadrar(coordenadas["x"]);
 		portaaviones["y"]=cuadrar(coordenadas["y"]);
 		portaaviones["girado"] = girado;
@@ -512,7 +514,8 @@ function drop(ev) {
 				if((portaaviones["y"]+80)>200){
 				portaaviones["y"] = portaaviones["y"] -60
 			}
-		}		hacertablero();		
+		}		
+		hacertablero();		
 		dibujar_barcos_ingame();
 
     }
@@ -562,4 +565,103 @@ function dibujar_barcos_ingame(){
 	    }
 
 	}
+}
+//comprobamos que exista un barco en esa posicion se nos tiene que dar la posicion
+// VALORES DEVUELTOS: ARRAY de 4 posiciones (false o true,numerico,ARRAY de coordenadas(x,y),false o true)
+// Explicacion de valores del array: [0] si existe true si no false; [1] numero de posiciones que ocupa; [2] coordenadas iniciales; [3] si esta | false y si esta - true
+function choca(x,y)
+{
+	acasochoca = [];
+	acasochoca[0] = false;
+	todos_los_barcos = [];
+	todos = todos_los_barcos.concat(submarinos,buques,portaaviones,lanchas);
+	tipo = 0;
+	for(h = 0; todos.length > h;h++)
+	{
+		if(h < 4)
+		{
+			tipo = 1;//submarinos
+			portar=false;
+		}
+		else if(h < 6)
+		{
+			tipo = 3;//lanchas
+			portar=false;
+		}
+		else if(h < 7)
+		{
+			tipo = 4;//portaaviones
+			console.log("portaaviones");
+			portar=true;
+		}
+		else if(h < 9)
+		{
+			tipo = 2;//buques
+			portar=false;
+		}
+		
+		if(portar)//solo para submarino porque tiene un array diferente
+		{
+			if(portaaviones["girado"] == 0)// | vertical
+			{
+				cuantohayquesumar = ((20*tipo)-20);
+				if(x == portaaviones["x"])
+				{
+					if(y >= portaaviones["y"] && y <= (portaaviones["y"]+cuantohayquesumar))
+					{
+						alert("esta sobre un barco que esta en posicion vertical");
+						return true;
+					}
+				}			
+			}
+			else// - horizontal 
+			{
+				cuantohayquesumar = ((20*tipo)-20);
+				if(y == portaaviones["y"])
+				{
+					if(x >= portaaviones["x"] && x <= (portaaviones["x"]+cuantohayquesumar))
+					{
+						alert("esta sobre un barco que esta en posicion horizontal");
+						return true;
+					}
+				}			
+			}
+		}
+		else
+		{
+			if(todos[h]["girado"] == undefined)//esto por si son submarinos que no tienen rotacion
+			{
+				if(x == todos[h]["x"] && y == todos[h]["y"])
+				{
+
+					alert("esta sobre un submarino cuidado");
+				}
+			}
+			else if(todos[h]["girado"] == 0)// | vertical
+			{
+				cuantohayquesumar = ((20*tipo)-20);
+				if(x == todos[h]["x"])
+				{
+					if(y >= todos[h]["y"] && y <= (todos[h]["y"]+cuantohayquesumar))
+					{
+						alert("esta sobre un barco que esta en posicion vertical");
+						return true;
+					}
+				}			
+			}
+			else// - horizontal 
+			{
+				cuantohayquesumar = ((20*tipo)-20);
+				if(y == todos[h]["y"])
+				{
+					if(x >= todos[h]["x"] && x <= (todos[h]["x"]+cuantohayquesumar))
+					{
+						alert("esta sobre un barco que esta en posicion horizontal");
+						return true;
+					}
+				}			
+			}
+		}
+	}
+	return false;
 }
