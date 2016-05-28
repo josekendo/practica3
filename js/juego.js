@@ -420,13 +420,13 @@ function drop(ev) {
 				if(girado == 1)
 				{
 					//si las lanchas se salen, las centro
-					if((lanchas[0]["x"]+40)>200){
+					if((lanchas[0]["x"]+20)>200){
 						lanchas[0]["x"] = lanchas[0]["x"] -20
 					}
 				}
 				else
 				{
-					if((lanchas[0]["y"]+40)>200){
+					if((lanchas[0]["y"]+20)>200){
 						lanchas[0]["y"] = lanchas[0]["y"] -20
 					}
 				}
@@ -448,12 +448,12 @@ function drop(ev) {
 			lanchas[1]["girado"] = girado;
 			if(girado == 1){
 				//si las lanchas se salen, las centro
-				if((lanchas[1]["x"]+40)>200){
+				if((lanchas[1]["x"]+20)>200){
 					lanchas[1]["x"] = lanchas[0]["x"] -20
 				}
 			}
 			else{
-					if((lanchas[1]["y"]+40)>200){
+					if((lanchas[1]["y"]+20)>200){
 					lanchas[1]["y"] = lanchas[1]["y"] -20
 				}
 			}
@@ -476,12 +476,12 @@ function drop(ev) {
 			lanchas[2]["girado"] = girado;
 			if(girado == 1){
 				//si las lanchas se salen, las centro
-				if((lanchas[2]["x"]+40)>200){
+				if((lanchas[2]["x"]+20)>200){
 					lanchas[2]["x"] = lanchas[2]["x"] -20
 				}
 			}
 			else{
-					if((lanchas[2]["y"]+40)>200){
+					if((lanchas[2]["y"]+20)>200){
 					lanchas[2]["y"] = lanchas[2]["y"] -20
 				}
 			}
@@ -504,15 +504,27 @@ function drop(ev) {
 			buques[0]["girado"] = girado;
 			if(girado == 1){
 				//si las buques se salen, las centro
-				if((buques[0]["x"]+60)>200){
-					buques[0]["x"] = buques[0]["x"] -40
+				if((buques[0]["x"]+20)>=200){
+					if((buques[0]["x"]+20) == 200){
+						buques[0]["x"] = buques[0]["x"] -20;
+					}
+					else{
+						buques[0]["x"] = buques[0]["x"] -40;
+
+					}
 				}
 			}
 			else{
-					if((buques[0]["y"]+60)>200){
-					buques[0]["y"] = buques[0]["y"] -40
-				}
-			}
+				if((buques[0]["y"]+20)>=200){
+					if((buques[0]["y"]+20) == 200){
+						buques[0]["y"] = buques[0]["y"] -20;
+					}
+					else{
+						buques[0]["y"] = buques[0]["y"] -40;
+
+					}
+				}			
+			}			
 			hacertablero();		
 			dibujar_barcos_ingame();
 
@@ -532,14 +544,26 @@ function drop(ev) {
 			buques[1]["girado"] = girado;
 			if(girado == 1){
 				//si las buques se salen, las centro
-				if((buques[1]["x"]+60)>200){
-					buques[1]["x"] = buques[1]["x"] -40
+				if((buques[1]["x"]+20)>=200){
+					if((buques[1]["x"]+20) == 200){
+						buques[1]["x"] = buques[1]["x"] -20;
+					}
+					else{
+						buques[1]["x"] = buques[1]["x"] -40;
+
+					}
 				}
 			}
 			else{
-				if((buques[1]["y"]+60)>200){
-					buques[1]["y"] = buques[1]["y"] -40
-				}
+				if((buques[1]["y"]+20)>=200){
+					if((buques[1]["y"]+20) == 200){
+						buques[1]["y"] = buques[1]["y"] -20;
+					}
+					else{
+						buques[1]["y"] = buques[1]["y"] -40;
+
+					}
+				}			
 			}
 			hacertablero();		
 			dibujar_barcos_ingame();
@@ -561,14 +585,33 @@ function drop(ev) {
 			if(girado == 1){
 				//si las buques se salen, las centro
 				if((portaaviones["x"]+80)>200){
-					portaaviones["x"] = portaaviones["x"] -60
+					alert(portaaviones["x"]);
+					if((portaaviones["x"])==200){
+						portaaviones["x"] = portaaviones["x"] -60
+					}
+					else if((portaaviones["x"]+40)==200){
+						portaaviones["x"] = portaaviones["x"] -20
+					}
+					else if((portaaviones["x"]+20)==200){
+						portaaviones["x"] = portaaviones["x"] -40
+					}
 				}
 			}
 			else{
-					if((portaaviones["y"]+80)>200){
-					portaaviones["y"] = portaaviones["y"] -60
+				//si las buques se salen, las centro
+				if((portaaviones["y"]+80)>200){
+					alert(portaaviones["y"]);
+					if((portaaviones["y"])==200){
+						portaaviones["y"] = portaaviones["y"] -60
+					}
+					else if((portaaviones["y"]+40)==200){
+						portaaviones["y"] = portaaviones["y"] -20
+					}
+					else if((portaaviones["y"]+20)==200){
+						portaaviones["y"] = portaaviones["y"] -40
+					}
 				}
-			}		
+			}
 			hacertablero();		
 			dibujar_barcos_ingame();
 
