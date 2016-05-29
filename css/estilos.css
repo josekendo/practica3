@@ -76,18 +76,52 @@ body
 
 #game/*Practica barco*/
 {
-	height:33%;
-	width:60%;
+	/*height:33%;
+	width:60%;*/
+	height:50%;
+	width:90%;
+	border: 2px solid black;
+	text-align:center;
+}
+
+#enemigo/*Practica barco*/
+{
+	/*height:33%;
+	width:60%;*/
+	height:50%;
+	width:90%;
 	border: 2px solid black;
 	text-align:center;
 }
 
 #barcos/*Practica barco*/
 {
-	height:33%;
-	width:33%;
+	height:50%;
+	width:90%;
 	border: 2px solid black;
 	text-align:center;
+	margin:auto;
+	overflow:hidden;
+}
+
+.barco/*Practica barco*/
+{
+	height:30%;
+	width:100%;
+}
+
+#zona1
+{
+	width:99%;
+	height:99%;
+	text-align:center;
+}
+
+#zona2
+{
+	width:99%;
+	height:99%;
+	text-align:center;	
 }
 .checkbox:checked#menu-toogle ~ #menu /* ~ hermanos*/
 {
@@ -418,6 +452,59 @@ form{
 	{
 		width:40%;
 	}
+	
+	#game/*Practica barco*/
+	{
+		/*height:33%;
+		width:60%;*/
+		height:50%;
+		width:90%;
+		border: 2px solid black;
+		text-align:center;
+	}
+	
+	#enemigo/*Practica barco*/
+	{
+		/*height:33%;
+		width:60%;*/
+		height:50%;
+		width:90%;
+		border: 2px solid black;
+		text-align:center;
+	}
+
+	#barcos/*Practica barco*/
+	{
+		height:50%;
+		width:90%;
+		border: 2px solid black;
+		text-align:center;
+		margin:auto;
+		
+	}
+
+	.barco/*Practica barco*/
+	{
+		height:15%;
+		width:40%;
+	}
+
+	#zona1
+	{
+		width:49%;
+		height:49%;
+		text-align:center;
+		float:left;
+	}
+
+	#zona2
+	{
+		width:49%;
+		height:49%;
+		text-align:center;	
+		float:right;
+		overflow:auto;
+	}
 
 }
 
@@ -602,6 +689,23 @@ form{
 	.comentario_index hr
 	{
 		display:none;
+	}
+	
+	#zona1
+	{
+		width:35%;
+		height:35%;
+		text-align:center;
+		float:left;
+	}
+
+	#zona2
+	{
+		width:35%;
+		height:35%;
+		text-align:center;	
+		float:right;
+		overflow:auto;
 	}
 };
 

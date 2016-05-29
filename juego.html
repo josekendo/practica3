@@ -40,21 +40,23 @@
 			<div>
 				<div style="width:99%;">
 					<p>Coordenadas: X = <span id="coordenadax"></span> Y = <span id="coordenaday"></span></p>
-						<div style="float:left;min-width:49%;text-align:center;" id="zona1">
+						<div id="zona1">
+							<p>Tablero:</p>
 							<canvas id="game" style="text-align:center;" width="220" height="220" ondrop="drop(event)" ondragover="allowDrop(event)">Tu navegador no soporta HTML5 Canvas :(</canvas>
 						</div>
-						<div style="text-align:center;float:right;max-width:49%;width:49%;" id="zona2">
-							<div id="barcos" width="220" height="220"> 
-								<canvas id="sub1" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-								<canvas id="sub2" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-								<canvas id="sub3" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-								<canvas id="sub4" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-								<canvas id="lan1" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-								<canvas id="lan2" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-								<canvas id="lan3" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-								<canvas id="buq1" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-								<canvas id="buq2" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
-								<canvas id="port" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
+						<div id="zona2">
+							<div id="barcos" width="220" height="220">
+								<p>Barcos disponibles:</p>
+								<canvas id="sub1" style='' class="barco" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="sub2" style='' class="barco" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="sub3" style='' class="barco" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="sub4" style='' class="barco" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="lan1" style='' class="barco" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="lan2" style='' class="barco" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="lan3" style='' class="barco" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="buq1" style='' class="barco" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="buq2" style='' class="barco" draggable = "true" ondragstart="drag(event)"></canvas>
+								<canvas id="port" style='' class="barco" draggable = "true" ondragstart="drag(event)"></canvas>
 							</div>
 						</div>
 					</div>
