@@ -159,6 +159,12 @@ function hacertablero_oponente()
 
 function inicializarcvo()
 {
+	cvo.onmousedown = function(e)
+	{
+			coordenadas = getPosition2(e);
+			colorearcuadro2(coordenadas["x"],coordenadas["y"]);
+	};
+	
 	cvo.onmousemove = function(e)
 	{
 		coordenadas = getPosition2(e);
@@ -167,6 +173,18 @@ function inicializarcvo()
 		coordenadas_jue=cuadrar_a_juwego(coordenadas["x"],coordenadas["y"]);
 		document.getElementById("coordenadax").innerHTML=coordenadas_jue["x"].toFixed(2);
 		document.getElementById("coordenaday").innerHTML=coordenadas_jue["y"].toFixed(2);
+	}
+	
+	cvo.onmouseup = function(e)
+	{
+		if(botonpulsado) mouseClick(e);
+		botonpulsado = false;
+	};
+	
+	cvo.onmouseout = function(e)
+	{
+		document.body.style.cursor = 'default';
+		hacertablero_oponente();
 	}
 }
 
@@ -320,3 +338,4 @@ function getPosition2(event)
 	
 	return posiciones;
 }
+
