@@ -1,5 +1,10 @@
-cto="";
-cvo="";
+cto="";//nuevo contexto del canvas enemigo(2d)
+cvo="";//canvas enemigo
+atacar=0;// 0 no hay ataque, 1 atacas tu, 2 ataca el servidor
+msg="";//Lo utilizamos para mostrar el ultimo resultado
+colu=0;//nos servira para pasar la columna a la que se esta atacando
+fil=0;//nos servira para pasar la fila a la que se esta atacando
+
 //archivo de trabajo en paralelo, cuando se termine pasar todas las funciones al otro archivo
 function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" o "GET",a donde debe ser una ruta conocida y implementada en el codigo si no se hara una llamada generica a ese punto
 {
@@ -14,31 +19,28 @@ function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" 
 		if(a_donde == "empezar")//funcionamiento correcto
 		{
 			datos = new FormData();
-			obj_ajax.onreadystatechange= empezar;
-			obj_ajax.onreadystatechange= procesar_cambios_de_clasificacion; // función callback: procesarCambio para comentarios	
+			obj_ajax.onreadystatechange= empezar;	
 			url = "rest/juego/empezar/";
+			use=JSON.parse(sessionStorage.getItem("login_session")).LOGIN;
 			datos.append("login",use);
 		}
 		else if(a_donde == "disparar")
 		{
-			obj_ajax.onreadystatechange= entrando; // función callback: procesarCambio para comentarios	
-			url = "rest/login/";
-			use = document.getElementById("userlogin").value;
-			pas = document.getElementById("password").value;
 			datos = new FormData();
+			obj_ajax.onreadystatechange= disparar;	
+			url = "rest/juego/disparo/jugador/";
+			use=JSON.parse(sessionStorage.getItem("login_session")).LOGIN;
 			datos.append("login",use);
-			datos.append("pwd",pas);
+			datos.append("columna",colu);
+			datos.append("fila",fil);
 		}
 		else if(a_donde == "disparo_enemigo")
 		{
-			obj_ajax.onreadystatechange= comprobaciondeusuario; // función callback: procesarCambio para comentarios	
-			url = "rest/login/";
-			use = document.getElementById("userregis").value;
-			if(use.length <= 3)
-			{
-				return false;
-			}
-			parametros_extras=use;
+			datos = new FormData();
+			obj_ajax.onreadystatechange= disparar_enemigo; // función callback: procesarCambio para comentarios	
+			url = "rest/juego/disparo/enemigo/";
+			use=JSON.parse(sessionStorage.getItem("login_session")).LOGIN;
+			datos.append("login",use);
 		}
 		else if(a_donde == "registrarse")
 		{
@@ -88,7 +90,9 @@ function empezarjuego()//funcion que sirve para empezar el juego
 	nodo2.innerHTML ='<canvas id="enemigo" style="text-align:center;" width="220" height="220">Tu navegador no soporta HTML5 Canvas :(</canvas>';
 	document.getElementById("botonjugar").style.display = "none";
 	document.getElementById("botonrotar").style.display = "none";
+	document.getElementById("botonesacciones").innerHTML = document.getElementById("botonesacciones").innerHTML + '<br/><button type="button" id="botondisparo" style="text-align:center;" disabled onclick="llamada_ajax_generico(&#34;POST&#34;,&#34;disparo_enemigo&#34;)">Dejar que me disparen</button>';
 	desabilitar_tablero();
+	llamada_ajax_generico("POST","empezar");
 }
 
 function desabilitar_tablero()//funcion que deshabilita las opciones de nuestro tablero
@@ -163,6 +167,13 @@ function inicializarcvo()
 	{
 			coordenadas = getPosition2(e);
 			colorearcuadro2(coordenadas["x"],coordenadas["y"]);
+			if(atacar == 1)
+			{	
+				coordenadas_jue = cuadrar_a_juwego(coordenadas["x"],coordenadas["y"]);
+				colu=coordenadas_jue["x"];
+				fil=coordenadas_jue["y"];
+				llamada_ajax_generico("POST","disparar");
+			}
 	};
 	
 	cvo.onmousemove = function(e)
@@ -171,8 +182,8 @@ function inicializarcvo()
 		document.body.style.cursor = 'crosshair';
 		colorearcuadro2(coordenadas["x"],coordenadas["y"]);
 		coordenadas_jue=cuadrar_a_juwego(coordenadas["x"],coordenadas["y"]);
-		document.getElementById("coordenadax").innerHTML=coordenadas_jue["x"].toFixed(2);
-		document.getElementById("coordenaday").innerHTML=coordenadas_jue["y"].toFixed(2);
+		document.getElementById("coordenadax").innerHTML=coordenadas_jue["x"];
+		document.getElementById("coordenaday").innerHTML=coordenadas_jue["y"];
 	}
 	
 	cvo.onmouseup = function(e)
@@ -339,3 +350,129 @@ function getPosition2(event)
 	return posiciones;
 }
 
+function empezar()
+{
+	if(obj_ajax.readyState == 4)
+	{ 
+		// valor 4: respuesta recibida y lista para ser procesada
+		if(obj_ajax.status == 200)
+		{ 
+			// El valor 200 significa que ha ido todo bien en la carga
+			// Aquí se procesa lo que se haya devuelto:
+			console.log("se ha terminado la carga de datos clasificacion -> devolviendo");//devolvemos mensaje por log
+			info=JSON.parse(obj_ajax.responseText);//creamos el objeto datos con los datos parseados
+			console.log("informacion devuelta:"+obj_ajax.responseText);//devolvemos por consola sus valores devueltos
+			//foormatear(clasificacion,"clasificacion");//mostramos la informacion en la pagina 
+			if(info.RESULTADO == "ok")
+			{
+				document.getElementById("respuestas").style.color = "blue";
+				document.getElementById("respuestas").innerHTML="Ya a empezado el juego, le toca atacar.";
+				atacar = 1;
+			}
+		}
+		else 
+		{
+			console.warn("no se ha podido completar la peticion ajax-html de index-clasificacion");//devolvemos mensaje por log
+			//zoom_activo();//activamos el slider sin opcion que significa que ha ido mal
+		}
+	}
+}
+
+function disparar()
+{
+	if(obj_ajax.readyState == 4)
+	{ 
+		// valor 4: respuesta recibida y lista para ser procesada
+		if(obj_ajax.status == 200)
+		{ 
+			// El valor 200 significa que ha ido todo bien en la carga
+			// Aquí se procesa lo que se haya devuelto:
+			console.log("se ha terminado la carga de datos clasificacion -> devolviendo");//devolvemos mensaje por log
+			info=JSON.parse(obj_ajax.responseText);//creamos el objeto datos con los datos parseados
+			console.log("informacion devuelta:"+obj_ajax.responseText);//devolvemos por consola sus valores devueltos
+			//foormatear(clasificacion,"clasificacion");//mostramos la informacion en la pagina 
+			if(info.RESULTADO == "ok")
+			{
+				if(info.DISPARO == 1)//tocado
+				{
+						document.getElementById("respuestas").style.color = "blue";
+						document.getElementById("respuestas").innerHTML="Tocado, Vuelve a disparar.";
+						atacar = 1;
+						//aqui se llamaria a la funcion de tocado(x,y)
+				}
+				else if(info.DISPARO == -1)//agua
+				{
+						document.getElementById("respuestas").style.color = "blue";
+						document.getElementById("respuestas").innerHTML="Agua, le toca al servidor.";
+						atacar = 2;
+						document.getElementById("botondisparo").disabled = false;
+						//aqui se llamaria a la funcion de agua(x,y)
+				}
+				else if(info.DISPARO == 2)//tocado y hundido
+				{
+						document.getElementById("respuestas").style.color = "blue";
+						document.getElementById("respuestas").innerHTML="Tocado y Hundido, Vuelve a disparar.";
+						atacar = 1;
+						//aqui se llamaria a la funcion tocado(x,y) y hundido()
+				}
+			}
+		}
+		else 
+		{
+			console.warn("no se ha podido completar la peticion ajax-html de index-clasificacion");//devolvemos mensaje por log
+			//zoom_activo();//activamos el slider sin opcion que significa que ha ido mal
+		}
+	}
+}
+
+function disparar_enemigo()
+{
+	if(obj_ajax.readyState == 4)
+	{ 
+		// valor 4: respuesta recibida y lista para ser procesada
+		if(obj_ajax.status == 200)
+		{ 
+			// El valor 200 significa que ha ido todo bien en la carga
+			// Aquí se procesa lo que se haya devuelto:
+			console.log("se ha terminado la carga de datos clasificacion -> devolviendo");//devolvemos mensaje por log
+			info=JSON.parse(obj_ajax.responseText);//creamos el objeto datos con los datos parseados
+			console.log("informacion devuelta:"+obj_ajax.responseText);//devolvemos por consola sus valores devueltos
+			//foormatear(clasificacion,"clasificacion");//mostramos la informacion en la pagina 
+			if(info.RESULTADO == "ok")
+			{
+				if(disparoanosotros(info.DISPARO.COLUMNA,info.DISPARO.FILA) == -1)//agua
+				{
+						document.getElementById("respuestas").style.color = "blue";
+						document.getElementById("respuestas").innerHTML="Agua, te toca disparar a ti.";
+						atacar = 1;
+						document.getElementById("botondisparo").disabled = true;
+				}
+				else if(disparoanosotros(info.DISPARO.COLUMNA,info.DISPARO.FILA) == 1)//tocado
+				{
+						document.getElementById("respuestas").style.color = "orange";
+						document.getElementById("respuestas").innerHTML="Te han tocado, les toca disparar de nuevo.";
+						atacar = 2;
+						document.getElementById("botondisparo").disabled = false;					
+				}
+				else if(disparoanosotros(info.DISPARO.COLUMNA,info.DISPARO.FILA) == 2)//tocado y hundido
+				{
+						document.getElementById("respuestas").style.color = "orange";
+						document.getElementById("respuestas").innerHTML="Tocado y Hundido, les toca disparar de nuevo.";
+						atacar = 2;
+						document.getElementById("botondisparo").disabled = false;					
+				}
+			}
+		}
+		else 
+		{
+			console.warn("no se ha podido completar la peticion ajax-html de index-clasificacion");//devolvemos mensaje por log
+			//zoom_activo();//activamos el slider sin opcion que significa que ha ido mal
+		}
+	}	
+}
+
+// -1 agua, 1 tocado, 2 tocado y hundido
+function disparoanosotros()
+{
+	return -1;
+}
