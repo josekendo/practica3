@@ -1,3 +1,5 @@
+cto="";
+cvo="";
 //archivo de trabajo en paralelo, cuando se termine pasar todas las funciones al otro archivo
 function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" o "GET",a donde debe ser una ruta conocida y implementada en el codigo si no se hara una llamada generica a ese punto
 {
@@ -99,9 +101,10 @@ function desabilitar_tablero()//funcion que deshabilita las opciones de nuestro 
 	};
 	
 	hacertablero();
+	hacertablero_oponente();
 }
 
-function hacertablero()
+function hacertablero_oponente()
 {
 	cto.strokeStyle="#000000";
 	cto.moveTo(0,0);//x e y ((1+a)*cw)
@@ -144,5 +147,4 @@ function hacertablero()
 	
 
 	dibujar_coordenadas_tya();
-
 }
