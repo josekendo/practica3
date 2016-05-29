@@ -65,7 +65,10 @@ function arranquep()
 			coordenadas = getPosition(e);
 			colorearcuadro(coordenadas["x"],coordenadas["y"]);
 	};
-
+	cv.onclick = function(e){
+			coordenadas = getPosition(e);
+			borrar_barco(coordenadas["x"],coordenadas["y"]);
+	};
 	
 	//con esto que el dedo a sido levantado
 	cv.onmouseup = function(e)
@@ -291,7 +294,7 @@ function hacertablero()
 	else{
 		y = 4;
 	}
- 	if(buques[0]["x"] == 0){
+ 	if(portaaviones["x"] == 0){
 
 	 	cbx.fillStyle = "#FF0000";
 	 	cbx.fillRect(0,0,20*y,20*x);
@@ -354,7 +357,65 @@ function colorearcuadro(coorx, coory)
 
 	}
 }
+function borrar_barco(coorx, coory){
+	if(coorx > 19 && coory > 19)
+	{
+	var x = cuadrar(coorx);
+	var y = cuadrar(coory);
+	for (var i = 0; i < submarinos.length; i++){
+		if( x == submarinos[i]["x"] && y== submarinos[i]["y"]){
+			submarinos[i]["x"] = 0;
+			submarinos[i]["y"] = 0;
+		}
+	}
+	for (var i = 0; i < lanchas.length; i++){
 
+		if(lanchas[i]["girado"] == 0){
+			if((y == lanchas[i]["y"] || y == lanchas[i]["y"] +20) && x== lanchas[i]["x"]){
+				lanchas[i]["x"] = 0;
+				lanchas[i]["y"] = 0;
+			}
+		}
+		if(lanchas[i]["girado"] == 1){
+			if((x == lanchas[i]["x"] || x == lanchas[i]["x"] +20) && y== lanchas[i]["y"]){
+				lanchas[i]["x"] = 0;
+				lanchas[i]["y"] = 0;
+			}
+		}
+	}
+	for (var i = 0; i < buques.length; i++){
+
+		if(buques[i]["girado"] == 0){
+			if((y == buques[i]["y"] || y == buques[i]["y"] +20 || y == buques[i]["y"] +40) && x== buques[i]["x"]){
+				buques[i]["x"] = 0;
+				buques[i]["y"] = 0;
+			}
+		}
+		if(buques[i]["girado"] == 1){
+			if((x == buques[i]["x"] || x == buques[i]["x"] +20 || x == buques[i]["x"] +40) && y== buques[i]["y"]){
+				buques[i]["x"] = 0;
+				buques[i]["y"] = 0;
+			}
+		}
+	}
+if(portaaviones["girado"] == 0){
+	if((y == portaaviones["y"] || y == portaaviones["y"] +20 || y == portaaviones["y"] +40 || y == portaaviones["y"] +60) && x== portaaviones["x"]){
+		portaaviones["x"] = 0;
+		portaaviones["y"] = 0;
+	}
+}
+if(portaaviones["girado"] == 1){
+	if((x == portaaviones["x"] || x == portaaviones["x"] +20 || x == portaaviones["x"] +40 || x == portaaviones["x"] +60) && y== portaaviones["y"]){
+		portaaviones["x"] = 0;
+		portaaviones["y"] = 0;
+	}
+}
+}	
+	dibujar_barcos_ingame();
+	hacertablero();//y creamos el tablero
+	crear_barcos_disponibles();
+
+}
 function cuadrar(h)
 {
 	t = Math.round(h);
@@ -425,7 +486,7 @@ function drop(ev) {
 	coordenadas = getPosition(ev);
     var data = ev.dataTransfer.getData("text");
     // ctx.fillStyle = "#00BFFF";
-	if(!(choca(cuadrar(coordenadas["x"]),cuadrar(coordenadas["y"]))[0]))//esto funciona cuando no choca con nada
+	if(!(choca(cuadrar(coordenadas["x"]),cuadrar(coordenadas["y"]))[0]) && coordenadas["x"] > 19 && coordenadas["y"] >19)//esto funciona cuando no choca con nada
 	{
 		// ctx.fillRect(coordenadas["x"],coordenadas["y"],20,20);
 		var id = ev.dataTransfer.getData("Text");
@@ -695,7 +756,7 @@ function drop(ev) {
 	{
 		document.getElementById("respuestas").style.color = "red";
 		document.getElementById("respuestas").style.textAlign = "center";
-		document.getElementById("respuestas").innerHTML="En esta coordenada ya hay un barco.";
+		document.getElementById("respuestas").innerHTML="No puedes poner un barco ahí.";
 	}
 }
 
