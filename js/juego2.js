@@ -106,6 +106,9 @@ function desabilitar_tablero()//funcion que deshabilita las opciones de nuestro 
 
 function hacertablero_oponente()
 {
+	cvo = document.getElementById("enemigo");
+	cvo.style.width="60%";
+	cto = cvo.getContext("2d");
 	cto.strokeStyle="#000000";
 	cto.moveTo(0,0);//x e y ((1+a)*cw)
 	cto.lineTo(0,cv.width);
