@@ -1,0 +1,1 @@
+//archivo de trabajo en paralelo, cuando se termine pasar todas las funciones al otro archivo

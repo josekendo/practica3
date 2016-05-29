@@ -585,7 +585,6 @@ function drop(ev) {
 			if(girado == 1){
 				//si las buques se salen, las centro
 				if((portaaviones["x"]+80)>200){
-					alert(portaaviones["x"]);
 					if((portaaviones["x"])==200){
 						portaaviones["x"] = portaaviones["x"] -60
 					}
@@ -600,7 +599,6 @@ function drop(ev) {
 			else{
 				//si las buques se salen, las centro
 				if((portaaviones["y"]+80)>200){
-					alert(portaaviones["y"]);
 					if((portaaviones["y"])==200){
 						portaaviones["y"] = portaaviones["y"] -60
 					}
@@ -819,11 +817,10 @@ function chocar_recursivo(numerodecuadros, giro, coorde)
 		if(giro == 0)// |
 		{
 			resultado = choca(cuadrar(coorde["x"]),cuadrar((coorde["y"]+medida)));
-			console.log(cuadrar(coorde["x"])+" "+cuadrar((coorde["y"]+medida)));
 		}
 		else// -
 		{
-			resultado = choca((coorde["x"]-medida),coorde["y"]);
+			resultado = choca(cuadrar(coorde["x"]+medida),cuadrar(coorde["y"]));
 		}
 		
 		if(resultado[0])
