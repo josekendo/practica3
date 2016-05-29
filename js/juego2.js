@@ -531,9 +531,64 @@ function disparar_enemigo()
 }
 
 // -1 agua, 1 tocado, 2 tocado y hundido
-function disparoanosotros()
+function disparoanosotros(x,y)
 {
-	return -1;
+	x = x * 20;
+	y = y * 20;
+	//por defecto daremos agua
+	ret = -1;
+	if(x > 19 && y > 19)
+	{
+		var x = cuadrar(coorx);
+		var y = cuadrar(coory);
+		for (var i = 0; i < submarinos.length; i++){
+			if( x == submarinos[i]["x"] && y== submarinos[i]["y"]){
+				ret = 1;
+						
+			}
+		}
+		for (var i = 0; i < lanchas.length; i++){
+
+			if(lanchas[i]["girado"] == 0){
+				if((y == lanchas[i]["y"] || y == lanchas[i]["y"] +20) && x== lanchas[i]["x"]){
+					ret = 1;
+				
+				}
+			}
+			if(lanchas[i]["girado"] == 1){
+				if((x == lanchas[i]["x"] || x == lanchas[i]["x"] +20) && y== lanchas[i]["y"]){
+					ret = 1;
+				
+				}
+			}
+		}
+		for (var i = 0; i < buques.length; i++){
+
+			if(buques[i]["girado"] == 0){
+				if((y == buques[i]["y"] || y == buques[i]["y"] +20 || y == buques[i]["y"] +40) && x== buques[i]["x"]){
+					ret = 1;
+			
+				}
+			}
+			if(buques[i]["girado"] == 1){
+				if((x == buques[i]["x"] || x == buques[i]["x"] +20 || x == buques[i]["x"] +40) && y== buques[i]["y"]){
+					ret = 1;
+				}
+			}
+		}
+		if(portaaviones["girado"] == 0){
+			if((y == portaaviones["y"] || y == portaaviones["y"] +20 || y == portaaviones["y"] +40 || y == portaaviones["y"] +60) && x== portaaviones["x"]){
+				ret = 1;
+			}
+		}
+		if(portaaviones["girado"] == 1){
+			if((x == portaaviones["x"] || x == portaaviones["x"] +20 || x == portaaviones["x"] +40 || x == portaaviones["x"] +60) && y== portaaviones["y"]){
+				ret = 1;
+					
+			}
+		}
+	return ret;
+	}
 }
 
 //si ha terminado la partida true, si no false
