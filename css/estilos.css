@@ -76,8 +76,6 @@ body
 
 #game/*Practica barco*/
 {
-	/*height:33%;
-	width:60%;*/
 	height:50%;
 	width:90%;
 	border: 2px solid black;
@@ -86,8 +84,6 @@ body
 
 #enemigo/*Practica barco*/
 {
-	/*height:33%;
-	width:60%;*/
 	height:50%;
 	width:90%;
 	border: 2px solid black;
@@ -455,8 +451,7 @@ form{
 	
 	#game/*Practica barco*/
 	{
-		/*height:33%;
-		width:60%;*/
+
 		height:50%;
 		width:90%;
 		border: 2px solid black;
@@ -465,8 +460,7 @@ form{
 	
 	#enemigo/*Practica barco*/
 	{
-		/*height:33%;
-		width:60%;*/
+
 		height:50%;
 		width:90%;
 		border: 2px solid black;

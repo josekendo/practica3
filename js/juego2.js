@@ -92,7 +92,7 @@ function empezarjuego()//funcion que sirve para empezar el juego
 	{
 		nodo2.removeChild(nodo2.firstChild);	
 	}
-	nodo2.innerHTML ='<canvas id="enemigo" style="text-align:center;" width="220" height="220">Tu navegador no soporta HTML5 Canvas :(</canvas>';
+	nodo2.innerHTML ='<p>Tablero del contricante:</p><canvas id="enemigo" width="220" height="220">Tu navegador no soporta HTML5 Canvas :(</canvas>';
 	document.getElementById("botonjugar").style.display = "none";
 	document.getElementById("botonrotar").style.display = "none";
 	document.getElementById("botonesacciones").innerHTML = document.getElementById("botonesacciones").innerHTML + '<br/><button type="button" id="botondisparo" style="text-align:center;" disabled onclick="llamada_ajax_generico(&#34;POST&#34;,&#34;disparo_enemigo&#34;)">Dejar que me disparen</button>';
@@ -121,7 +121,6 @@ function desabilitar_tablero()//funcion que deshabilita las opciones de nuestro 
 function hacertablero_oponente()
 {
 	cvo = document.getElementById("enemigo");
-	cvo.style.width="60%";
 	cto = cvo.getContext("2d");
 	cto.strokeStyle="#000000";
 	cto.moveTo(0,0);//x e y ((1+a)*cw)
@@ -222,8 +221,14 @@ function colorearcuadro2(coorx, coory)
 
 			hacertablero_oponente();//y creamos el tablero
 
-
-			cto.fillStyle = "#FF0000";
+			if(atacar == 1)
+			{
+				cto.fillStyle = " 	#99CCFF";
+			}
+			else
+			{
+				cto.fillStyle = "#ff0000";
+			}
 			//debemos cuadrar las coordenadas
 			cuardrados=cuadrar(coorx,coory);
 			cto.fillRect(cuadrar(coorx),cuadrar(coory),cw,ch);
@@ -539,8 +544,8 @@ function disparoanosotros(x,y)
 	ret = -1;
 	if(x > 19 && y > 19)
 	{
-		var x = cuadrar(coorx);
-		var y = cuadrar(coory);
+		var x = cuadrar(x);
+		var y = cuadrar(y);
 		for (var i = 0; i < submarinos.length; i++){
 			if( x == submarinos[i]["x"] && y== submarinos[i]["y"]){
 				ret = 1;
