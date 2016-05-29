@@ -689,6 +689,8 @@ function dibujar_barcos_ingame(){
 	    }
 
 	}
+	
+	comprobar_boton_jugar();
 }
 //comprobamos que exista un barco en esa posicion se nos tiene que dar la posicion
 // VALORES DEVUELTOS: ARRAY de 4 posiciones (false o true,numerico,ARRAY de coordenadas(x,y),false o true)
@@ -830,4 +832,61 @@ function chocar_recursivo(numerodecuadros, giro, coorde)
 	}
 	
 	return true;
+}
+
+function barcos_estan_tablero()//retorna true si todos los barcos estan en el tablero
+{
+	todos_los_barcos = [];
+	todos = todos_los_barcos.concat(submarinos,buques,portaaviones,lanchas);
+	for(m = 0; todos.length > m; m++)
+	{
+		if(m < 4)
+		{
+			tipo2 = 1;//submarinos
+			portar2=false;
+		}
+		else if(m < 6)
+		{
+			tipo2 = 3;//lanchas
+			portar2=false;
+		}
+		else if(m < 7)
+		{
+			tipo2 = 4;//portaaviones
+			portar2 =true;
+		}
+		else if(m < 9)
+		{
+			tipo2 = 2;//buques
+			portar2 =false;
+		}	
+
+		if(portar2)
+		{
+			if(!(portaaviones["x"] != 0 && portaaviones["y"] != 0))
+			{
+				return false;
+			}
+		}
+		else 
+		{
+			if(!(todos[m]["x"] != 0 && todos[m]["y"] != 0))
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+function comprobar_boton_jugar()//si estan todos los barcos se habilita el boton de jugar
+{
+	if(barcos_estan_tablero())
+	{
+		 document.getElementById("botonjugar").disabled = false;
+	}
+	else
+	{
+		 document.getElementById("botonjugar").disabled = true;
+	}
 }

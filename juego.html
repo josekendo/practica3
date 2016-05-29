@@ -39,10 +39,10 @@
 			<div>
 				<div style="width:99%;">
 					<p>Coordenadas: X = <span id="coordenadax"></span> Y = <span id="coordenaday"></span></p>
-						<div style="float:left;min-width:49%;text-align:center;">
+						<div style="float:left;min-width:49%;text-align:center;" id="zona1">
 							<canvas id="game" style="text-align:center;" width="220" height="220" ondrop="drop(event)" ondragover="allowDrop(event)">Tu navegador no soporta HTML5 Canvas :(</canvas>
 						</div>
-						<div style="text-align:center;float:right;max-width:49%;width:49%;">
+						<div style="text-align:center;float:right;max-width:49%;width:49%;" id="zona2">
 							<div id="barcos" width="220" height="220"> 
 								<canvas id="sub1" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
 								<canvas id="sub2" style= width="40px" height="40px" draggable = "true" ondragstart="drag(event)"></canvas>
@@ -60,8 +60,8 @@
 					<div style="width:99%;overflow:hidden;text-align:center;">
 						<span id="respuestas" style="width:100%;"></span><br/>
 						<!-- <br/> -->
-						<button type="button" style="text-align:center;"disabled onclick="girar()">Jugar</button>
-						<button type="button" style="text-align:center;" onclick="girar()">Rotar Barcos 90º</button>
+						<button type="button" id="botonjugar" style="text-align:center;" disabled onclick="empezarjuego()">Jugar</button>
+						<button type="button" id="botonrotar" style="text-align:center;" onclick="girar()">Rotar Barcos 90º</button>
 					</div>
 			</div>
 			<footer>
