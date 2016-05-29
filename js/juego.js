@@ -159,31 +159,47 @@ function hacertablero()
  {
  	var x = 1;
  	var y = 1;
+
+
  	var c=document.getElementById("sub1");
 	var cbx=c.getContext("2d");
-	
-
- 	cbx.fillStyle = "#00BFFF";
- 	cbx.fillRect(0,0,20,20);
-
+ 	if(submarinos[0]["x"] == 0){
+		cbx.fillStyle = "#00BFFF";
+ 		cbx.fillRect(0,0,20,20);
+	}
+	else{
+		cbx.clearRect(0,0,90,90);
+	}
  	var c=document.getElementById("sub2");
 	var cbx=c.getContext("2d");
 
- 	cbx.fillStyle = "#00BFFF";
- 	cbx.fillRect(0,0,20,20);
-
+ 	if(submarinos[1]["x"] == 0){
+		cbx.fillStyle = "#00BFFF";
+ 		cbx.fillRect(0,0,20,20);
+	}
+	else{
+		cbx.clearRect(0,0,90,90);
+	}
   	var c=document.getElementById("sub3");
 	var cbx=c.getContext("2d");
 
- 	cbx.fillStyle = "#00BFFF";
- 	cbx.fillRect(0,0,20,20);
-
+ 	if(submarinos[2]["x"] == 0){
+		cbx.fillStyle = "#00BFFF";
+ 		cbx.fillRect(0,0,20,20);
+	}
+	else{
+		cbx.clearRect(0,0,90,90);
+	}
   	var c=document.getElementById("sub4");
 	var cbx=c.getContext("2d");
 
- 	cbx.fillStyle = "#00BFFF";
- 	cbx.fillRect(0,0,20,20);
-	
+ 	if(submarinos[3]["x"] == 0){
+		cbx.fillStyle = "#00BFFF";
+ 		cbx.fillRect(0,0,20,20);
+	}
+	else{
+		cbx.clearRect(0,0,90,90);
+	}	
 	if(girado == 0){
 		x = 2;
 	}
@@ -195,23 +211,40 @@ function hacertablero()
 	var cbx=c.getContext("2d");
 
 	cbx.clearRect(0,0,90,90);
+ 	if(lanchas[0]["x"] == 0){
 
- 	cbx.fillStyle = "#FFBF00";
- 	cbx.fillRect(0,0,20*y,20*x);
+	 	cbx.fillStyle = "#FFBF00";
+	 	cbx.fillRect(0,0,20*y,20*x);
 
+	}
+	else{
+		cbx.clearRect(0,0,90,90);
+	}
  	var c=document.getElementById("lan2");
 	var cbx=c.getContext("2d");
 	cbx.clearRect(0,0,90,90);
+ 	if(lanchas[1]["x"] == 0){
 
- 	cbx.fillStyle = "#FFBF00";
- 	cbx.fillRect(0,0,20*y,20*x);
+	 	cbx.fillStyle = "#FFBF00";
+	 	cbx.fillRect(0,0,20*y,20*x);
+
+	}
+	else{
+		cbx.clearRect(0,0,90,90);
+	}
 
   	var c=document.getElementById("lan3");
 	var cbx=c.getContext("2d");
 	cbx.clearRect(0,0,90,90);
+ 	if(lanchas[2]["x"] == 0){
 
- 	cbx.fillStyle = "#FFBF00";
- 	cbx.fillRect(0,0,20*y,20*x);
+	 	cbx.fillStyle = "#FFBF00";
+	 	cbx.fillRect(0,0,20*y,20*x);
+
+	}
+	else{
+		cbx.clearRect(0,0,90,90);
+	}
 
  	x=1;
  	y=1;
@@ -226,16 +259,28 @@ function hacertablero()
 	var cbx=c.getContext("2d");
 	cbx.clearRect(0,0,90,90);
 
- 	cbx.fillStyle = "#00EF4E";
- 	cbx.fillRect(0,0,20*y,20*x);
+ 	if(buques[0]["x"] == 0){
 
+	 	cbx.fillStyle = "#00EF4E";
+	 	cbx.fillRect(0,0,20*y,20*x);
+
+	}
+	else{
+		cbx.clearRect(0,0,90,90);
+	}
  	var c=document.getElementById("buq2");
 	var cbx=c.getContext("2d");
 	cbx.clearRect(0,0,90,90);
 
- 	cbx.fillStyle = "#00EF4E";
- 	cbx.fillRect(0,0,20*y,20*x);
+ 	if(buques[1]["x"] == 0){
 
+	 	cbx.fillStyle = "#00EF4E";
+	 	cbx.fillRect(0,0,20*y,20*x);
+
+	}
+	else{
+		cbx.clearRect(0,0,90,90);
+	}
  	var c=document.getElementById("port");
 	var cbx=c.getContext("2d");
 	cbx.clearRect(0,0,90,90);
@@ -246,9 +291,15 @@ function hacertablero()
 	else{
 		y = 4;
 	}
- 	cbx.fillStyle = "#FF0000";
- 	cbx.fillRect(0,0,20*y,20*x);
+ 	if(buques[0]["x"] == 0){
 
+	 	cbx.fillStyle = "#FF0000";
+	 	cbx.fillRect(0,0,20*y,20*x);
+
+	}
+	else{
+		cbx.clearRect(0,0,90,90);
+	}
  }
 //con esta funcion obtenemos la posicion convertida a canvas
 function getPosition(event)
@@ -386,6 +437,9 @@ function drop(ev) {
 			submarinos[0]["y"]=cuadrar(coordenadas["y"]);
 			hacertablero();		
 			dibujar_barcos_ingame();
+			crear_barcos_disponibles();
+
+
 		}
 		
 		if(data == "sub2")
@@ -394,6 +448,7 @@ function drop(ev) {
 			submarinos[1]["y"]=cuadrar(coordenadas["y"]);
 			hacertablero();		
 			dibujar_barcos_ingame();
+			crear_barcos_disponibles();
 		}
 		
 		if(data == "sub3")
@@ -402,6 +457,7 @@ function drop(ev) {
 			submarinos[2]["y"]=cuadrar(coordenadas["y"]);
 			hacertablero();		
 			dibujar_barcos_ingame();
+			crear_barcos_disponibles();
 		}
 		
 		if(data == "sub4")
@@ -410,6 +466,7 @@ function drop(ev) {
 			submarinos[3]["y"]=cuadrar(coordenadas["y"]);
 			hacertablero();		
 			dibujar_barcos_ingame();
+			crear_barcos_disponibles();
 		}
 		
 		if(data == "lan1" && chocar_recursivo(2,lanchas[0]["girado"],coordenadas))
@@ -432,6 +489,8 @@ function drop(ev) {
 				}
 				hacertablero();		
 				dibujar_barcos_ingame();
+				crear_barcos_disponibles();
+
 		}
 		else if(data == "lan1")
 		{
@@ -459,6 +518,8 @@ function drop(ev) {
 			}
 			hacertablero();		
 			dibujar_barcos_ingame();
+			crear_barcos_disponibles();
+
 
 		}
 		else if(data == "lan2")
@@ -487,6 +548,8 @@ function drop(ev) {
 			}
 			hacertablero();		
 			dibujar_barcos_ingame();
+			crear_barcos_disponibles();
+
 		}
 		else if(data == "lan3")
 		{
@@ -527,6 +590,8 @@ function drop(ev) {
 			}			
 			hacertablero();		
 			dibujar_barcos_ingame();
+			crear_barcos_disponibles();
+
 
 		}
 		else if(data == "buq1")
@@ -567,6 +632,8 @@ function drop(ev) {
 			}
 			hacertablero();		
 			dibujar_barcos_ingame();
+			crear_barcos_disponibles();
+
 
 		}
 		else if(data == "buq2")
@@ -612,6 +679,8 @@ function drop(ev) {
 			}
 			hacertablero();		
 			dibujar_barcos_ingame();
+			crear_barcos_disponibles();
+
 
 		}
 		else if(data == "port")
