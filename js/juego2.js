@@ -111,19 +111,19 @@ function hacertablero_oponente()
 	cto = cvo.getContext("2d");
 	cto.strokeStyle="#000000";
 	cto.moveTo(0,0);//x e y ((1+a)*cw)
-	cto.lineTo(0,cv.width);
+	cto.lineTo(0,cvo.width);
 	cto.stroke();
 	cto.strokeStyle="#000000";
 	for(a=0;a < 11;a++)
 	{
 		cto.moveTo(cw*(a+1),0);//x e y ((1+a)*cw)
-		cto.lineTo(cw*(a+1),cv.height);
+		cto.lineTo(cw*(a+1),cvo.height);
 		cto.stroke();
 	}
 	for(a=0;a < 11;a++)
 	{
 		cto.moveTo(0,ch*(a+1));//x e y ((1+a)*cw)
-		cto.lineTo(cv.width,ch*(a+1));
+		cto.lineTo(cvo.width,ch*(a+1));
 		cto.stroke();
 	}
 	cto.fillText("A",6,34);
