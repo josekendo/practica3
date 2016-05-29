@@ -198,6 +198,7 @@ function inicializarcvo()
 		coordenadas_jue=cuadrar_a_juwego(coordenadas["x"],coordenadas["y"]);
 		document.getElementById("coordenadax").innerHTML=coordenadas_jue["x"];
 		document.getElementById("coordenaday").innerHTML=coordenadas_jue["y"];
+		dibujar_coordenadas_tya();
 	}
 	
 	cvo.onmouseup = function(e)
