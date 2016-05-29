@@ -53,10 +53,25 @@ function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" 
 			use=JSON.parse(sessionStorage.getItem("login_session")).LOGIN;
 			parametros_extras = "?login="+use;
 		}
-		
 		else if(a_donde == "")
 		{
 			console.log("no se ha puesto a donde");
+		}	
+		else if(a_donde == "vic")
+		{
+			datos = new FormData();
+			obj_ajax.onreadystatechange= vp; // función callback: procesarCambio para comentarios	
+			url = "rest/juego/ganada/";
+			use=JSON.parse(sessionStorage.getItem("login_session")).LOGIN;
+			datos.append("login",use);
+		}
+		else if(a_donde == "der")
+		{
+			datos = new FormData();
+			obj_ajax.onreadystatechange= vp; // función callback: procesarCambio para comentarios	
+			url = "rest/juego/perdida/";
+			use=JSON.parse(sessionStorage.getItem("login_session")).LOGIN;
+			datos.append("login",use);
 		}
 		
 		obj_ajax.open(tipo_de_llamada,url+parametros_extras, false); // Se crea petición GET a url, asíncrona ("true")
@@ -91,7 +106,7 @@ function desabilitar_tablero()//funcion que deshabilita las opciones de nuestro 
 {
 	cv.onmousedown = function(e)
 	{
-			coordenadas = getPosition(e);
+		coordenadas = getPosition(e);
 	};
 	
 	cv.onmousemove = function(e)
@@ -552,6 +567,16 @@ function haterminado()
 	
 	if(contador_de_tocados == 20)
 	{
+		if(atacar == 1)
+		{
+			llamada_ajax_generico("POST","vic");
+			Victoria();
+		}
+		else
+		{
+			llamada_ajax_generico("POST","der");
+			Derrota();
+		}
 		return true;
 	}
 	else
@@ -594,6 +619,60 @@ function coordenadayautilizada(x,y,bando)
 }
 //callback para mostrar las coordenadas de los barcos
 function trampas()
+{
+	if(obj_ajax.readyState == 4)
+	{ 
+		// valor 4: respuesta recibida y lista para ser procesada
+		if(obj_ajax.status == 200)
+		{ 
+			// El valor 200 significa que ha ido todo bien en la carga
+			// Aquí se procesa lo que se haya devuelto:
+			console.log("se ha terminado la carga de datos clasificacion -> devolviendo");//devolvemos mensaje por log
+			info=JSON.parse(obj_ajax.responseText);//creamos el objeto datos con los datos parseados
+			console.log("informacion devuelta:"+obj_ajax.responseText);//devolvemos por consola sus valores devueltos
+			//foormatear(clasificacion,"clasificacion");//mostramos la informacion en la pagina 
+		}
+		else 
+		{
+			console.warn("no se ha podido completar la peticion ajax-html de index-clasificacion");//devolvemos mensaje por log
+			//zoom_activo();//activamos el slider sin opcion que significa que ha ido mal
+		}
+	}
+}
+
+function Victoria() //cuando le das a login aparecera esta pantalla
+{
+	ventana = document.getElementById('zoo');
+	mensaje = document.getElementById('mensaje');
+	if(!ventana.classList.contains('zoom_visible'))
+	{
+		subir();
+		mensaje.innerHTML = 
+		"<div style='position: absolute;top: 50%; left: 50%;transform: translate(-50%, -50%);'><h2 style='color:green;'>"
+		+"<h4>Has Ganado <span style='color:green;'>Enhorabuena</span>.</h4>"
+		+"<a href='#' onclick='document.location.href=&#34;index.html&#34;'>Cerrar</a></div>";
+		ventana.classList.add('zoom_visible');
+		document.body.classList.add('bloqueo');
+	}
+}
+
+function Derrota() //cuando le das a login aparecera esta pantalla
+{
+	ventana = document.getElementById('zoo');
+	mensaje = document.getElementById('mensaje');
+	if(!ventana.classList.contains('zoom_visible'))
+	{
+		subir();
+		mensaje.innerHTML = 
+		"<div style='position: absolute;top: 50%; left: 50%;transform: translate(-50%, -50%);'><h2 style='color:green;'>"
+		+"<h4>Has Perdido <span style='color:red;'>Lo sentimos :( </span>.</h4>"
+		+"<a href='#' onclick='document.location.href=&#34;index.html&#34;'>Cerrar</a></div>";
+		ventana.classList.add('zoom_visible');
+		document.body.classList.add('bloqueo');
+	}
+}
+//lo unico que hace es gestionar la respuesta del servidor de victoria y derrota
+function vp()
 {
 	if(obj_ajax.readyState == 4)
 	{ 
