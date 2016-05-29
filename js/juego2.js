@@ -11,13 +11,15 @@ function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" 
 		datos="";
 		// Si se ha creado el objeto, se sigue ejecutando la peticion ...
 		// Se establece la función (callback) a la que llamar cuando cambie el estado en este caso procesar_cambios que sera personalizado
-		if(a_donde == "clasificacion")//funcionamiento correcto
+		if(a_donde == "empezar")//funcionamiento correcto
 		{
+			datos = new FormData();
+			obj_ajax.onreadystatechange= empezar;
 			obj_ajax.onreadystatechange= procesar_cambios_de_clasificacion; // función callback: procesarCambio para comentarios	
-			url = "rest/clasificacion/";
-			parametros_extras = "?c=10";
+			url = "rest/juego/empezar/";
+			datos.append("login",use);
 		}
-		else if(a_donde == "logearse")
+		else if(a_donde == "disparar")
 		{
 			obj_ajax.onreadystatechange= entrando; // función callback: procesarCambio para comentarios	
 			url = "rest/login/";
@@ -27,7 +29,7 @@ function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" 
 			datos.append("login",use);
 			datos.append("pwd",pas);
 		}
-		else if(a_donde == "comprobacion_de_usuario")
+		else if(a_donde == "disparo_enemigo")
 		{
 			obj_ajax.onreadystatechange= comprobaciondeusuario; // función callback: procesarCambio para comentarios	
 			url = "rest/login/";
@@ -59,6 +61,7 @@ function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" 
 				datos.append("foto",foto);
 			}			
 		}
+		
 		else if(a_donde == "")
 		{
 			console.log("no se ha puesto a donde");
@@ -148,6 +151,172 @@ function hacertablero_oponente()
 	cto.fillText("9",188,12);
 	cto.fillText("10",204,12);
 	
+	inicializarcvo();
 
-	dibujar_coordenadas_tya();
+	//dibujar_coordenadas_tya();
+	
+}
+
+function inicializarcvo()
+{
+	cvo.onmousemove = function(e)
+	{
+		coordenadas = getPosition2(e);
+		document.body.style.cursor = 'crosshair';
+		colorearcuadro2(coordenadas["x"],coordenadas["y"]);
+		coordenadas_jue=cuadrar_a_juwego(coordenadas["x"],coordenadas["y"]);
+		document.getElementById("coordenadax").innerHTML=coordenadas_jue["x"].toFixed(2);
+		document.getElementById("coordenaday").innerHTML=coordenadas_jue["y"].toFixed(2);
+	}
+}
+
+function colorearcuadro2(coorx, coory)
+{
+	if(coorx > 19 && coory > 19)
+	{
+			cvo.width=cvo.width;
+
+			hacertablero_oponente();//y creamos el tablero
+
+
+			cto.fillStyle = "#FF0000";
+			//debemos cuadrar las coordenadas
+			cuardrados=cuadrar(coorx,coory);
+			cto.fillRect(cuadrar(coorx),cuadrar(coory),cw,ch);
+			cto.clearRect(cuadrar(coorx),cuadrar(coory),cw-1,ch-1);
+
+	}
+}
+
+//cuadramos segun el juego, devuelve x como columna , y como fila, es un array
+function cuadrar_a_juwego(jx,jy)
+{
+	jxf = Math.round(jx);
+	jyf = Math.round(jy);
+	
+	columna = "";//x -
+	fila = "";//y |
+	
+	if(jxf > 19 && jxf < 40)
+	{
+		columna = 1;
+	}
+	else if(jxf > 40  && jxf < 60)
+	{
+		columna = 2;
+	}
+	else if(jxf > 60  && jxf < 80)
+	{
+		columna = 3;
+	}
+	else if(jxf > 80  && jxf < 100)
+	{
+		columna = 4;
+	}
+	else if(jxf > 100  && jxf < 120)
+	{
+		columna = 5;
+	}
+	else if(jxf > 120  && jxf < 140)
+	{
+		columna = 6;
+	}
+	else if(jxf > 140  && jxf < 160)
+	{
+		columna = 7;		
+	}
+	else if(jxf > 160  && jxf < 180)
+	{
+		columna = 8;
+	}
+	else if(jxf > 180  && jxf < 200)
+	{
+		columna = 9;
+	}
+	else if(jxf > 200  && jxf < 220)
+	{
+		columna = 10;
+	}
+	
+	if(jyf > 19 && jyf < 40)
+	{
+		fila = 1;
+	}
+	else if(jyf > 40  && jyf < 60)
+	{
+		fila = 2;
+	}
+	else if(jyf > 60  && jyf < 80)
+	{
+		fila = 3;
+	}
+	else if(jyf > 80  && jyf < 100)
+	{
+		fila = 4;
+	}
+	else if(jyf > 100  && jyf < 120)
+	{
+		fila = 5;
+	}
+	else if(jyf > 120  && jyf < 140)
+	{
+		fila = 6;
+	}
+	else if(jyf > 140  && jyf < 160)
+	{
+		fila = 7;		
+	}
+	else if(jyf > 160  && jyf < 180)
+	{
+		fila = 8;
+	}
+	else if(jyf > 180  && jyf < 200)
+	{
+		fila = 9;
+	}
+	else if(jyf > 200  && jyf < 220)
+	{
+		fila = 10;
+	}
+	
+	coordenadas_juego = [];
+	coordenadas_juego["x"] = columna;
+	coordenadas_juego["y"] = fila;
+	
+	return coordenadas_juego;
+}
+
+function getPosition2(event)
+{
+	var x = new Number();
+	var y = new Number();
+	var canvas = document.getElementById("enemigo");
+
+	if (event.x != undefined && event.y != undefined)//esto se realiza en todos los navegadores menos en firefox
+	{
+	  x = event.x;
+	  y = event.y;
+	}
+	else //metodo para firefox
+	{
+	  x = event.clientX + document.body.scrollLeft +
+		  document.documentElement.scrollLeft;
+	  y = event.clientY + document.body.scrollTop +
+		  document.documentElement.scrollTop;
+	}
+
+	x -= canvas.offsetLeft;
+	y -= canvas.offsetTop;
+	
+	xc=cvo.clientWidth/cvo.width;
+	yc=cvo.clientHeight/cvo.height;
+	
+	x=x/xc;
+	y=y/yc;
+	
+	var posiciones = new Array();
+	posiciones["x"]=x;
+	posiciones["y"]=y;
+	
+	return posiciones;
 }
