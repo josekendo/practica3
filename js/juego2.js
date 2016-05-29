@@ -73,7 +73,76 @@ function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" 
 	return false;
 }
 
-function empezarjuego()
+function empezarjuego()//funcion que sirve para empezar el juego
 {
-	alert("empezando a jugar");
+	nodo2=document.getElementById("zona2");//nodo div de index
+	while(nodo2.hasChildNodes())//con esto eliminamos todos los comentarios que hayan antes
+	{
+		nodo2.removeChild(nodo2.firstChild);	
+	}
+	nodo2.innerHTML ='<canvas id="enemigo" style="text-align:center;" width="220" height="220">Tu navegador no soporta HTML5 Canvas :(</canvas>';
+	document.getElementById("botonjugar").style.display = "none";
+	document.getElementById("botonrotar").style.display = "none";
+	desabilitar_tablero();
+}
+
+function desabilitar_tablero()//funcion que deshabilita las opciones de nuestro tablero
+{
+	cv.onmousedown = function(e)
+	{
+			coordenadas = getPosition(e);
+	};
+	
+	cv.onmousemove = function(e)
+	{
+		coordenadas = getPosition(e);
+	};
+	
+	hacertablero();
+}
+
+function hacertablero()
+{
+	cto.strokeStyle="#000000";
+	cto.moveTo(0,0);//x e y ((1+a)*cw)
+	cto.lineTo(0,cv.width);
+	cto.stroke();
+	cto.strokeStyle="#000000";
+	for(a=0;a < 11;a++)
+	{
+		cto.moveTo(cw*(a+1),0);//x e y ((1+a)*cw)
+		cto.lineTo(cw*(a+1),cv.height);
+		cto.stroke();
+	}
+	for(a=0;a < 11;a++)
+	{
+		cto.moveTo(0,ch*(a+1));//x e y ((1+a)*cw)
+		cto.lineTo(cv.width,ch*(a+1));
+		cto.stroke();
+	}
+	cto.fillText("A",6,34);
+	cto.fillText("B",6,54);
+	cto.fillText("C",6,74);
+	cto.fillText("D",6,94);
+	cto.fillText("E",6,114);
+	cto.fillText("F",6,134);
+	cto.fillText("G",6,154);
+	cto.fillText("H",6,174);
+	cto.fillText("I",8,194);
+	cto.fillText("J",6,214);
+	
+	cto.fillText("1",28,12);
+	cto.fillText("2",48,12);
+	cto.fillText("3",68,12);
+	cto.fillText("4",88,12);
+	cto.fillText("5",108,12);
+	cto.fillText("6",128,12);
+	cto.fillText("7",148,12);
+	cto.fillText("8",168,12);
+	cto.fillText("9",188,12);
+	cto.fillText("10",204,12);
+	
+
+	dibujar_coordenadas_tya();
+
 }

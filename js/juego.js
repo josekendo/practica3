@@ -890,3 +890,8 @@ function comprobar_boton_jugar()//si estan todos los barcos se habilita el boton
 		 document.getElementById("botonjugar").disabled = true;
 	}
 }
+//funcion que dibuja las coordenadas tocadas y agua en el tablero oponente cto cvo
+function dibujar_coordenadas_tya()
+{
+	alert("ahora dibujamos las coordenadas tocadas y agua");
+}
