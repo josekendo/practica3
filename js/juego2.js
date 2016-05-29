@@ -1,13 +1,13 @@
-cto="";//nuevo contexto del canvas enemigo(2d)
-cvo="";//canvas enemigo
-atacar=0;// 0 no hay ataque, 1 atacas tu, 2 ataca el servidor
-msg="";//Lo utilizamos para mostrar el ultimo resultado
-colu=0;//nos servira para pasar la columna a la que se esta atacando
-fil=0;//nos servira para pasar la fila a la que se esta atacando
-coordenadas_ya_utilizadas = []; // 20 como maximo puede haber tocado 
-coordenadas_ya_utilizadas_enemigo = []; // 20 como maximo puede haber tocado 
-contador1=0;//contador nuestro
-contador2=0;//contador del enemigo
+var cto="";//nuevo contexto del canvas enemigo(2d)
+var cvo="";//canvas enemigo
+var atacar=0;// 0 no hay ataque, 1 atacas tu, 2 ataca el servidor
+var msg="";//Lo utilizamos para mostrar el ultimo resultado
+var colu=0;//nos servira para pasar la columna a la que se esta atacando
+var fil=0;//nos servira para pasar la fila a la que se esta atacando
+var coordenadas_ya_utilizadas = []; // 20 como maximo puede haber tocado 
+var coordenadas_ya_utilizadas_enemigo = []; // 20 como maximo puede haber tocado 
+var contador1=0;//contador nuestro
+var contador2=0;//contador del enemigo
 
 //archivo de trabajo en paralelo, cuando se termine pasar todas las funciones al otro archivo
 function llamada_ajax_generico(tipo_de_llamada,a_donde)//tipo_de_llamada "POST" o "GET",a donde debe ser una ruta conocida y implementada en el codigo si no se hara una llamada generica a ese punto
@@ -163,7 +163,7 @@ function hacertablero_oponente()
 	
 	inicializarcvo();
 
-	//dibujar_coordenadas_tya();
+	//dibutar()
 	
 }
 
@@ -198,7 +198,7 @@ function inicializarcvo()
 		coordenadas_jue=cuadrar_a_juwego(coordenadas["x"],coordenadas["y"]);
 		document.getElementById("coordenadax").innerHTML=coordenadas_jue["x"];
 		document.getElementById("coordenaday").innerHTML=coordenadas_jue["y"];
-		dibujar_coordenadas_tya();
+		dibutar();
 	}
 	
 	cvo.onmouseup = function(e)
@@ -430,7 +430,7 @@ function disparar()
 							document.getElementById("respuestas").innerHTML="Has ganado enhorabuena.";
 							document.getElementById("botondisparo").disabled = true;
 							atacar = 0;
-							dibujar_coordenadas_tya();
+							dibutar()
 						}								
 				}
 				else if(info.DISPARO == -1)//agua
@@ -440,7 +440,7 @@ function disparar()
 						atacar = 2;
 						document.getElementById("botondisparo").disabled = false;
 						coordenadas_ya_utilizadas[contador1]["estado"] = "agua";
-						dibujar_coordenadas_tya();
+						dibutar()
 						//aqui se llamaria a la funcion de agua(x,y)
 
 				}
@@ -451,7 +451,7 @@ function disparar()
 						atacar = 1;
 						coordenadas_ya_utilizadas[contador1]["estado"] = "tocado";
 						//aqui se llamaria a la funcion tocado(x,y) y hundido()
-						dibujar_coordenadas_tya();
+						dibutar()
 						if(haterminado())//si es true se termina la partida
 						{
 							document.getElementById("respuestas").style.color = "Green";
@@ -486,6 +486,8 @@ function disparar_enemigo()
 			//foormatear(clasificacion,"clasificacion");//mostramos la informacion en la pagina 
 			if(info.RESULTADO == "ok")
 			{
+				colu=info.DISPARO.COLUMNA;
+				fil=info.DISPARO.FILA;
 				coordenadas_ya_utilizadas_enemigo[contador2] = [];
 				coordenadas_ya_utilizadas_enemigo[contador2]["x"] = colu;
 				coordenadas_ya_utilizadas_enemigo[contador2]["y"] = fil;
@@ -496,7 +498,7 @@ function disparar_enemigo()
 						document.getElementById("botondisparo").disabled = true;
 						coordenadas_ya_utilizadas_enemigo[contador2]["estado"] = "agua";
 						atacar = 1;
-						dibujar_coordenadas_tya();
+						dibutar()
 						
 				}
 				else if(disparoanosotros(info.DISPARO.COLUMNA,info.DISPARO.FILA) == 1)//tocado
@@ -512,7 +514,7 @@ function disparar_enemigo()
 							document.getElementById("respuestas").innerHTML="Has ganado enhorabuena.";
 							document.getElementById("botondisparo").disabled = true;
 							atacar = 0;
-							dibujar_coordenadas_tya();
+							dibutar()
 						}								
 				}
 				else if(disparoanosotros(info.DISPARO.COLUMNA,info.DISPARO.FILA) == 2)//tocado y hundido
@@ -528,7 +530,7 @@ function disparar_enemigo()
 							document.getElementById("respuestas").innerHTML="Has perdido contra la maquina, lo sentimos.";
 							document.getElementById("botondisparo").disabled = true;
 							atacar = 0;
-							dibujar_coordenadas_tya();
+							dibutar()
 						}														
 				}
 				contador2++;
@@ -759,4 +761,38 @@ function vp()
 			//zoom_activo();//activamos el slider sin opcion que significa que ha ido mal
 		}
 	}
+}
+
+//funcion que dibuja las coordenadas tocadas y agua en el tablero oponente cto cvo
+function dibutar()
+{
+	for(s = 0;coordenadas_ya_utilizadas_enemigo.length > s; s++)
+	{
+		if(coordenadas_ya_utilizadas_enemigo[s]["estado"] == "tocado")
+		{
+			ctx.fillStyle = "#870202";
+	 		ctx.fillRect(coordenadas_ya_utilizadas_enemigo[s]["x"]*20,coordenadas_ya_utilizadas_enemigo[s]["y"]*20,18,18);
+		}
+		if(coordenadas_ya_utilizadas_enemigo[s]["estado"] == "agua")
+		{
+			ctx.fillStyle = "#00FFD8";
+	 		ctx.fillRect(coordenadas_ya_utilizadas_enemigo[s]["x"]*20,coordenadas_ya_utilizadas_enemigo[s]["y"]*20,18,18);
+		}
+
+	}
+
+	for(i = 0;coordenadas_ya_utilizadas.length > i; i++)
+	{
+		if(coordenadas_ya_utilizadas[i]["estado"] == "tocado")
+		{
+			cto.fillStyle = "#870202";
+	 		cto.fillRect(coordenadas_ya_utilizadas[i]["x"]*20,coordenadas_ya_utilizadas[i]["y"]*20,18,18);
+		}
+		if(coordenadas_ya_utilizadas[i]["estado"] == "agua")
+		{
+			cto.fillStyle = "#00FFD8";
+	 		cto.fillRect(coordenadas_ya_utilizadas[i]["x"]*20,coordenadas_ya_utilizadas[i]["y"]*20,18,18);
+		}		
+	}
+	return true;
 }

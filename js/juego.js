@@ -164,7 +164,7 @@ function hacertablero()
  	var y = 1;
 
 
- 	var c=document.getElementById("sub1");
+ 	var c = document.getElementById("sub1");
 	var cbx=c.getContext("2d");
  	if(submarinos[0]["x"] == 0){
 		cbx.fillStyle = "#00BFFF";
@@ -1018,27 +1018,5 @@ function comprobar_boton_jugar()//si estan todos los barcos se habilita el boton
 	else
 	{
 		 document.getElementById("botonjugar").disabled = true;
-	}
-}
-//funcion que dibuja las coordenadas tocadas y agua en el tablero oponente cto cvo
-function dibujar_coordenadas_tya()
-{
-	alert("ahora dibujamos las coordenadas tocadas y agua");
-	//allevamos
-
-	for(var i = 0; i<coordenadas_ya_utilizadas_enemigo.lenght; i++){
-		if(coordenadas_ya_utilizadas_enemigo["estado"] == "tocado"){
-			cbx.fillStyle = "#870202";
-	 		cbx.fillRect(coordenadas_ya_utilizadas_enemigo["x"]+1,coordenadas_ya_utilizadas_enemigo["y"]+1,18,18);
-		}
-		if(coordenadas_ya_utilizadas_enemigo["estado"] == "agua"){
-			cbx.fillStyle = "#00FFD8";
-	 		cbx.fillRect(coordenadas_ya_utilizadas_enemigo["x"]+1,coordenadas_ya_utilizadas_enemigo["y"]+1,18,18);
-		}
-
-	}
-
-	for(var i = 0; i<coordenadas_ya_utilizadas.lenght; i++){
-		
 	}
 }
