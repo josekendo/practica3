@@ -429,6 +429,7 @@ function disparar()
 							document.getElementById("respuestas").innerHTML="Has ganado enhorabuena.";
 							document.getElementById("botondisparo").disabled = true;
 							atacar = 0;
+							dibujar_coordenadas_tya();
 						}								
 				}
 				else if(info.DISPARO == -1)//agua
@@ -438,6 +439,7 @@ function disparar()
 						atacar = 2;
 						document.getElementById("botondisparo").disabled = false;
 						coordenadas_ya_utilizadas[contador1]["estado"] = "agua";
+						dibujar_coordenadas_tya();
 						//aqui se llamaria a la funcion de agua(x,y)
 
 				}
@@ -448,6 +450,7 @@ function disparar()
 						atacar = 1;
 						coordenadas_ya_utilizadas[contador1]["estado"] = "tocado";
 						//aqui se llamaria a la funcion tocado(x,y) y hundido()
+						dibujar_coordenadas_tya();
 						if(haterminado())//si es true se termina la partida
 						{
 							document.getElementById("respuestas").style.color = "Green";
@@ -492,6 +495,7 @@ function disparar_enemigo()
 						document.getElementById("botondisparo").disabled = true;
 						coordenadas_ya_utilizadas_enemigo[contador2]["estado"] = "agua";
 						atacar = 1;
+						dibujar_coordenadas_tya();
 						
 				}
 				else if(disparoanosotros(info.DISPARO.COLUMNA,info.DISPARO.FILA) == 1)//tocado
@@ -507,6 +511,7 @@ function disparar_enemigo()
 							document.getElementById("respuestas").innerHTML="Has ganado enhorabuena.";
 							document.getElementById("botondisparo").disabled = true;
 							atacar = 0;
+							dibujar_coordenadas_tya();
 						}								
 				}
 				else if(disparoanosotros(info.DISPARO.COLUMNA,info.DISPARO.FILA) == 2)//tocado y hundido
@@ -522,6 +527,7 @@ function disparar_enemigo()
 							document.getElementById("respuestas").innerHTML="Has perdido contra la maquina, lo sentimos.";
 							document.getElementById("botondisparo").disabled = true;
 							atacar = 0;
+							dibujar_coordenadas_tya();
 						}														
 				}
 				contador2++;
